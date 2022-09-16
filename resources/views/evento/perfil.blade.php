@@ -7,13 +7,7 @@
          <img class="foto" src="{{Voyager::image($perfil->avatar)}}" alt="">
 
 
-
-
-
-
-
-
-
+        
 
 
 
