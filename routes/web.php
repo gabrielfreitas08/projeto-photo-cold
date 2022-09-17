@@ -2,11 +2,9 @@
 
 use App\Models\{
     User,
-    Preferences,
     Evento,
     Foto,
-    View,
-};
+    };
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,15 +20,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 
 // Rota da classe Evento
-Route::get('/evento', function () {
+Route::get('/eventos', function () {
 
     $eventos = Evento::all();
     return view('evento.index', compact('eventos'));
-})->name('evento');
+})->name('eventos');
 
 // Rota das fotos
 Route::get('/fotos/{id}', function ($id) {
@@ -39,56 +37,42 @@ Route::get('/fotos/{id}', function ($id) {
     $evento = Evento::find($id);
     /*$fotos = Foto::all();*/
     return view('evento.foto', compact('evento'));
-})->name('fotos');
+})->name('fotos.show');
 
 // Rota de ver fotos
-Route::get('/verfotos', function () {
-
+Route::get('/fotos', function () {
     /* dd($id);
     $evento = Evento::find($id);*/
     $fotos = Foto::all();
     return view('evento.foto', compact('fotos'));
-})->name('verfotos');
+})->name('fotos');
 
 // Rota de visualização dos eventos
-Route::get('/view/{id}', function ($id)  {
+Route::get('/eventos/{id}', function ($id)  {
 
     $evento = Evento::find($id);
-    return view('evento.view',compact('evento'));
-})->name('view');
+    return view('evento.show',compact('evento'));
+})->name('eventos.show');
 
 // rota para adcionar a foto do evento no carrinho
-Route::get('/carrinho/{id}', function ($id) {
+Route::get('/carrinho', function () {
 
-    $select = Foto::find ($id);
-    return view('evento.carrinho', compact('select'));
-});
+    return view('carrinho.index');
+})->name('carrinho');
 
 // rota para visualizar os fotografos cadastrados na plataforma
-Route::get('/fotografo', function () {
+Route::get('/fotografos', function () {
 
-    /*$fotografo = User::all();*/
-   /* $fotografo = User::where ({{Voyager:roles("display_name = 'fotografo'")}});*/
     $fotografo = User::where ('role_id',3)->get();
-
-    return view('evento.fotografo', compact('fotografo'));
-});
+   return view('fotografo.fotografo', compact('fotografo'));
+})->name('fotografos');
 
 // Rota de visualização dos perfis dos fotografos
-Route::get('/perfil/{id}', function ($id)  {
+Route::get('/fotografos/{id}', function ($id)  {
 
     $perfil = User::find($id);
-    return view('evento.perfil',compact('perfil'));
-})->name('perfil');
-
-Route::get ('/one-to-one', function() {
-
-    $user = User::first();
-
-    dd($user->Preferences );
-});
-
-
+    return view('fotografo.perfil',compact('perfil'));
+})->name('fotografos.show');
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();

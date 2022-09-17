@@ -16,7 +16,7 @@
 
         <div class="d-flex justify-content-between align-items-center">
             <div class="d-flex">
-            <img src="{{Voyager::image($evento->capa->thumbnail('small', 'original'))}}" />
+            <img src="{{Voyager::image($evento->capa->thumbnail('small', 'original'))}}" alt="foto-evento"/>
 
             <div class="px-4">
             <b> {{ $evento->titulo }} </b>
@@ -25,7 +25,7 @@
                 R${!! $evento->valor!!}
             </div>
             </div>
-            <a href="{{route('view', [$evento->id])}}" class="btn btn-secondary d-flex justify-content-end">Ver evento</a>
+            <a href="{{route('eventos.show', [$evento->id])}}" class="btn btn-secondary d-flex justify-content-end">Ver evento</a>
                     {{-- rota antiga, fotos --}}
         </div>
 

@@ -36,7 +36,7 @@
                 <div class="card-body">
                     <h5 class="card-title"></h5>
                     <p class="card-text">{{ $evento->evento_id }}</p>
-                    <a href="/carrinho" class="btn btn-primary">selecionar</a>
+                    <a href="{{route('carrinho')}}" class="btn btn-primary">selecionar</a>
                 </div>
             </div>
         @empty
