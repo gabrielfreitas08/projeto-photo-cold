@@ -28,6 +28,6 @@
     @includeIf('componentes.services')
     @includeIf('componentes.about')
     @includeIf('componentes.team')
-    @includeIf('componentes.clients')
-    @includeIf('componentes.contact')
+    {{--@includeIf('componentes.clients')
+    @includeIf('componentes.contact')--}}
 @endsection

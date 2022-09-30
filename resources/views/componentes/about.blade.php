@@ -2,58 +2,58 @@
 <section class="page-section" id="about">
     <div class="container">
         <div class="text-center">
-            <h2 class="section-heading text-uppercase">About</h2>
-            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+            <h2 class="section-heading text-uppercase">Expectativas</h2>
+            <h3 class="section-subheading text-muted">Dentre o desenvolvimento, espera-se alcançar os recursos:</h3>
         </div>
         <ul class="timeline">
             <li>
                 <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/1.jpg" alt="..." /></div>
                 <div class="timeline-panel">
                     <div class="timeline-heading">
-                        <h4>2009-2011</h4>
-                        <h4 class="subheading">Our Humble Beginnings</h4>
+                        {{--<h4>2009-2011</h4>--}}
+                        <h4 class="subheading">Loja online</h4>
                     </div>
-                    <div class="timeline-body"><p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
+                    <div class="timeline-body"><p class="text-muted">Pubique seus eventos para que seus clientes possam comprar as fotos que desejarem automaticamente. </p></div>
                 </div>
             </li>
             <li class="timeline-inverted">
                 <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/2.jpg" alt="..." /></div>
                 <div class="timeline-panel">
                     <div class="timeline-heading">
-                        <h4>March 2011</h4>
-                        <h4 class="subheading">An Agency is Born</h4>
+                       {{-- <h4>March 2011</h4>--}}
+                        <h4 class="subheading">Entrega automatizada</h4>
                     </div>
-                    <div class="timeline-body"><p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
+                    <div class="timeline-body"><p class="text-muted">O principal objetivo deste projeto é alcançar a entrega automatizada, ou seja, o próprio sistema entregará as fotos para o cliente. </p></div>
                 </div>
             </li>
             <li>
                 <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/3.jpg" alt="..." /></div>
                 <div class="timeline-panel">
                     <div class="timeline-heading">
-                        <h4>December 2015</h4>
-                        <h4 class="subheading">Transition to Full Service</h4>
+                       {{-- <h4>December 2015</h4>--}}
+                        <h4 class="subheading">Diminuir a qualidade das fotos</h4>
                     </div>
-                    <div class="timeline-body"><p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
+                    <div class="timeline-body"><p class="text-muted">O cliente não pode visualizar as fotos originais, pois poderia adqui-la, então, a resolução das fotos será diminuida para a visualização das vendas. </p></div>
                 </div>
             </li>
             <li class="timeline-inverted">
                 <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/4.jpg" alt="..." /></div>
                 <div class="timeline-panel">
                     <div class="timeline-heading">
-                        <h4>July 2020</h4>
-                        <h4 class="subheading">Phase Two Expansion</h4>
+                       {{-- <h4>July 2020</h4>--}}
+                        <h4 class="subheading">Pagamento online</h4>
                     </div>
-                    <div class="timeline-body"><p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
+                    <div class="timeline-body"><p class="text-muted">O pagamento das fotos será totalmente online e ligado aos fotógrafos, facilitando assim, o fluxo de venda. </p></div>
                 </div>
             </li>
             <li class="timeline-inverted">
                 <div class="timeline-image">
                     <h4>
-                        Be Part
+                        Por hoje
                         <br />
-                        Of Our
+                        é
                         <br />
-                        Story!
+                        só!
                     </h4>
                 </div>
             </li>

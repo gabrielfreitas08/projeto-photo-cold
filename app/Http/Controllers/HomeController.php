@@ -26,4 +26,19 @@ class HomeController extends Controller
         return redirect()->route('voyager.dashboard');
         //return view('home');
     }
+
+    // função para visualização da imagem detalhada (ampliada)
+    /*function foto ($id = null){
+
+        if (!empty($id)){
+            $registro = Foto::where([
+                'id' => $id,
+            ])->first();
+        }
+
+        if (!empty($registro)){
+            return view('evento.foto', compact('registro'));
+        }
+        return redirect()->route('evento');
+    }*/
 }

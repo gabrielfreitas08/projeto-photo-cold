@@ -9,4 +9,5 @@ use TCG\Voyager\Traits\Resizable;
 class Foto extends Model
 {
     use Resizable;
+
 }
