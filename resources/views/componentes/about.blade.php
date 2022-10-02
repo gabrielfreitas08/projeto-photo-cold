@@ -31,9 +31,9 @@
                 <div class="timeline-panel">
                     <div class="timeline-heading">
                        {{-- <h4>December 2015</h4>--}}
-                        <h4 class="subheading">Diminuir a qualidade das fotos</h4>
+                        <h4 class="subheading">Facilite a escolha das fotos</h4>
                     </div>
-                    <div class="timeline-body"><p class="text-muted">O cliente não pode visualizar as fotos originais, pois poderia adqui-la, então, a resolução das fotos será diminuida para a visualização das vendas. </p></div>
+                    <div class="timeline-body"><p class="text-muted">Possibilita o cliente selecionar fotos que desejar e recebe-las a versão de alta resolução, após o pagamento. </p></div>
                 </div>
             </li>
             <li class="timeline-inverted">

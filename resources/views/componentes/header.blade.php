@@ -1,19 +1,19 @@
-{{--<header class="masthead">
+<header class="masthead">
 <div class="container">
     <div class="masthead-subheading">
-        --}}{{-- {{setting('site.title')}}--}}{{-- Loja Online
+         {{--{{setting('site.title')}}--}} Loja Online
     </div>
     <div class="masthead-heading text-uppercase">
-        --}}{{--  {{setting('site.description')}}--}}{{-- venda suas fotos com menos esforço
+         {{-- {{setting('site.description')}}--}} venda suas fotos com menos esforço
     </div>
-    <a class="btn btn-primary btn-xl text-uppercase" href="#services">
-        Conheça a aplicação
+    <a class="btn btn-outline-light btn-xl text-uppercase" href="#recursos">
+        Conheça os recursos
     </a>
 </div>
-</header>--}}
+</header>
 
 
-<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+{{--<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
         <div class="carousel-item active transition: transform 2s ease, opacity .3s ease-out">
             <img src="images/1.jpg" class="d-block w-100" alt="um">
@@ -41,4 +41,4 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
     </button>
-</div>
+</div>--}}

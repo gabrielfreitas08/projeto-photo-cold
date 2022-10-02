@@ -15,7 +15,7 @@
             <div class="card-body">
                 <h5 class="card-title">{{ $foto->name }}</h5>
                 <p class="card-text"> cidade </p>
-                <a href="{{route('fotografos.show', [$foto->id])}}" class="btn btn-primary">Visualizar Perfil</a>
+                <a href="{{route('fotografos.show', [$foto->id])}}" class="btn btn-dark">Portfólio</a>
             </div>
         </div>
     @empty

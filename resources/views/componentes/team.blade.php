@@ -9,21 +9,21 @@
             <div class="col-lg-4">
                 <div class="team-member">
                     <img class="mx-auto rounded-circle" src="{{asset('assets/img/team/1.jpg')}}" alt="..." />
-                    <h4>Gabriel Dias Freitas</h4>
-                    <p class="text-muted">Orientando</p>
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Twitter Profile"><i class="fab fa-twitter"></i></a>
+                    <h4>Aurélio Vargas Ramos Júnior</h4>
+                    <p class="text-muted">Orientador</p>
+                    <a class="btn btn-dark btn-social mx-2" href="https://github.com/aurelio-ramos" aria-label="Parveen Anand Twitter Profile"><i class="fab fa-github"></i></a>
                     <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Facebook Profile"><i class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+                    <a class="btn btn-dark btn-social mx-2" href="https://br.linkedin.com/in/ramos-junior/pt?trk=people-guest_people_search-card" aria-label="Parveen Anand LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="team-member">
-                    <img class="mx-auto rounded-circle" src="{{asset('assets/img/team/2.jpg')}}" alt="..." />
-                    <h4>Aurélio Vargas Ramos Junior</h4>
-                    <p class="text-muted">Orientador</p>
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen Twitter Profile"><i class="fab fa-twitter"></i></a>
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen Facebook Profile"><i class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+                    <img class="mx-auto rounded-circle" src="{{asset('assets/img/team/2.png')}}" alt="..." />
+                    <h4>Gabriel Dias Freitas</h4>
+                    <p class="text-muted">Desenvolvedor</p>
+                    <a class="btn btn-dark btn-social mx-2" href="https://www.instagram.com/gaabriel_freeitas/" aria-label="Diana Petersen Twitter Profile"><i class="fab fa-instagram"></i></a>
+                    <a class="btn btn-dark btn-social mx-2" href="https://mail.google.com/mail/u/0/#inbox" aria-label="Diana Petersen Facebook Profile"><i class="fab fa-google"></i></a>
+                    <a class="btn btn-dark btn-social mx-2" href="https://github.com/gabrielfreitas08" aria-label="Diana Petersen LinkedIn Profile"><i class="fab fa-github"></i></a>
                 </div>
             </div>
             <div class="col-lg-4">
@@ -31,7 +31,7 @@
                     <img class="mx-auto rounded-circle" src="{{asset('assets/img/team/3.jpg')}}" alt="..." />
                     <h4>Joel Barbosa Ferreira</h4>
                     <p class="text-muted">Coorientador</p>
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Larry Parker Twitter Profile"><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-dark btn-social mx-2" href="https://www.instagram.com/joel.83ferreira/" aria-label="Larry Parker Twitter Profile"><i class="fab fa-instagram"></i></a>
                     <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Larry Parker Facebook Profile"><i class="fab fa-facebook-f"></i></a>
                     <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Larry Parker LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
                 </div>
