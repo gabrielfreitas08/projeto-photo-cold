@@ -27,7 +27,7 @@
                     <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
                 </span>
                 <h4 class="my-3">Fotógrafos</h4>
-                <p class="text-muted">Fotógrafos .</p>
+                <p class="text-muted">Diversos portfólios para você se encantar e conhencer os fotógrafos. </p>
             </div>
         </div>
     </div>

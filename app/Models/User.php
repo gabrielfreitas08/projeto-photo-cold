@@ -41,4 +41,10 @@ class User extends \TCG\Voyager\Models\User //implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function eventos()
+    {
+        return $this->hasMany(Evento::class, 'user_id', 'id');
+
+    }
 }

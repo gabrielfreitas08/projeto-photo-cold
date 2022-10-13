@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Models;
+
+use http\Env\Request;
 use TCG\Voyager\Facades\Voyager;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -8,6 +10,19 @@ use Illuminate\Support\Facades\Auth;
 
 class Evento extends Model
 {
+
+    /**
+     * Prepare a date for array / JSON serialization.
+     *
+     * @param  \DateTimeInterface  $date
+     * @return string
+     */
+    /*protected function serializeDate(DateTimeInterface $date)
+    {
+        return $date->format('d-m-Y');
+    }*/
+
+
     public function save(array $options = [])
     {
         // If no author has been assigned, assign the current user's id as the author of the post
@@ -20,7 +35,7 @@ class Evento extends Model
     public function scopeActive($query)
     {
         $user = Auth::user();
-        if($user->hasRole('admin')){
+        if ($user->hasRole('admin')) {
             return $query;
         }
         return $query->where('user_id', $user->getKey());
@@ -29,12 +44,35 @@ class Evento extends Model
     public function capa()
     {
         /*dd($this->capa_id);*/
-        return $this->hasOne(Foto::class,'id', 'capa_id');
+        return $this->hasOne(Foto::class, 'id', 'capa_id');
     }
 
     public function fotos()
     {
-        /*dd($this->capa_id);*/
-        return $this->hasMany(Foto::class,'evento_id', 'id');
+        return $this->hasMany(Foto::class, 'evento_id', 'id');
     }
+
+    /*public function add ()
+    {
+
+        $this->middleware('VerifyCsrfToken');
+
+        $req = Request();
+        $foto = $req->input('id');
+
+        $produto = Foto::find($foto);
+        if (empty($produto->id)){
+            $req->session()->flash('mensagem-falha', 'foto não encrontrada');
+            return redirect()->route('eventos.show');
+        }
+
+        $user = Auth::id();
+
+        $foto = Pedido::consulta([
+           'user_id' => $user,
+            'status' => 'RE' // reservada
+        ]);
+
+    }*/
+
 }

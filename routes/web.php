@@ -55,9 +55,11 @@ Route::get('/eventos/{id}', function ($id)  {
 })->name('eventos.show');
 
 // rota para adcionar a foto do evento no carrinho
-Route::get('/carrinho', function () {
+Route::get('/carrinho/{id}', function ($id) {
 
-    return view('carrinho.index');
+    $carrinho = Foto::find($id);
+    return view('carrinho.index', compact('carrinho'));
+    //return redirect('eventos.show', compact('carrinho'));
 })->name('carrinho');
 
 // rota para visualizar os fotografos cadastrados na plataforma
@@ -70,9 +72,10 @@ Route::get('/fotografos', function () {
 // Rota de visualização dos perfis dos fotografos
 Route::get('/fotografos/{id}', function ($id)  {
 
-    $perfil = User::find($id);
-    return view('fotografo.perfil',compact('perfil'));
-})->name('fotografos.show');
+    $perfil = \App\Models\Fotografo::all ();
+    $fotografo = User::find($id);
+    return view('fotografo.perfil',compact('fotografo', 'perfil'));
+    })->name('fotografos.show');
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
