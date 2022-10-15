@@ -16,20 +16,19 @@
                             <p class="card-text">
                                 <b> {{ $evento->titulo }} </b>
                                 {!! $evento->descricao !!}
-                                {!! $evento->dia_realizado !!} <br>
-                                R${!! $evento->valor!!}
+                                {{--R${!! $evento->valor!!}--}}
                             </p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                     <a href="{{route('eventos.show', [$evento->id])}}" class="btn btn-sm btn-outline-secondary">Visualizar</a>
                                 </div>
-                                <small class="text-muted">9 mins</small>
+                                <small class="text-muted">{!! $evento->dia_realizado !!}</small>
                             </div>
                         </div>
                     </div>
                 </div>
                 @empty
-                    <p>Não há eventos cadastrados</p>
+                    <p>Não há eventos públicos cadastrados para visualização</p>
                 @endforelse
             </div>
         </div>

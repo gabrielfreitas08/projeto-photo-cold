@@ -29,7 +29,7 @@
                     <div class="card-body">
                         <h5 class="card-title"></h5>
                         <p class="card-text">{{ $evento->evento_id }}</p>
-                        <a href="{{route('carrinho', [$foto->id])}}" class="btn btn-primary">selecionar</a>
+                        <a href="{{route('carrinho', [$foto->id])}}" class="btn btn-dark">Adicionar ao carrinho</a>
                     </div>
                 </div>
             @empty

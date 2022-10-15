@@ -26,7 +26,9 @@ Route::get('/', function () {
 // Rota da classe Evento
 Route::get('/eventos', function () {
 
-    $eventos = Evento::all();
+    $eventos = Evento::where([
+        'status' => 'on' // é para retornar eventos públicos
+    ]);
     return view('evento.index', compact('eventos'));
 })->name('eventos');
 
@@ -61,6 +63,13 @@ Route::get('/carrinho/{id}', function ($id) {
     return view('carrinho.index', compact('carrinho'));
     //return redirect('eventos.show', compact('carrinho'));
 })->name('carrinho');
+
+// rota para finalizar a compra do carrinhp
+Route::get('/carrinho/final', function () {
+
+    $carrinho = Foto::find();
+    return view('carrinho.index', compact('carrinho'));
+})->name('carrinho.finalizacao');
 
 // rota para visualizar os fotografos cadastrados na plataforma
 Route::get('/fotografos', function () {

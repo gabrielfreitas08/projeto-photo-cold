@@ -11,14 +11,14 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('fotografos')}}">Fotógrafos</a>
+                    <a class="nav-link" href="/carrinho/{id}"><i class="fa-solid fa-cart-shopping"></i></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('eventos')}}">Eventos</a>
                 </li>
-                {{--<li class="nav-item">
-                    <a class="nav-link" href="/fotografo">Fotógrafos</a>
-                </li>--}}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('fotografos')}}">Fotógrafos</a>
+                </li>
                 <!-- Authentication Links -->
                 @guest
                     @if (Route::has('voyager.login'))
