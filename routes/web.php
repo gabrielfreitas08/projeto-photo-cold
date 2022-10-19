@@ -24,13 +24,14 @@ Route::get('/', function () {
 
 
 // Rota da classe Evento
+/*
 Route::get('/eventos', function () {
 
     $eventos = Evento::where([
         'status' => 'on' // é para retornar eventos públicos
     ]);
     return view('evento.index', compact('eventos'));
-})->name('eventos');
+})->name('eventos');*/
 
 // Rota das fotos
 Route::get('/fotos/{id}', function ($id) {
@@ -72,11 +73,12 @@ Route::get('/carrinho/final', function () {
 })->name('carrinho.finalizacao');
 
 // rota para visualizar os fotografos cadastrados na plataforma
+/*
 Route::get('/fotografos', function () {
 
     $fotografo = User::where ('role_id',3)->get();
    return view('fotografo.fotografo', compact('fotografo'));
-})->name('fotografos');
+})->name('fotografos');*/
 
 // Rota de visualização dos perfis dos fotografos
 Route::get('/fotografos/{id}', function ($id)  {
@@ -92,4 +94,8 @@ Route::group(['prefix' => 'admin'], function () {
 
 Auth::routes();
 
+Route::get('/mail', [\App\Mail\UserEmail::class, 'build'])->name('mail.build');
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/eventos',[\App\Http\Controllers\EventoController::class, 'index'])->name('eventos');
+Route::get('/fotografos', [\App\Http\Controllers\FotografoController::class, 'index'])->name('fotografos');

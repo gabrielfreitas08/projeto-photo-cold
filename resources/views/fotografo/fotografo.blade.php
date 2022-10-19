@@ -2,6 +2,7 @@
 
 @section('conteudo')
 
+
     {{--<section class="d-flex justify-content-evenly flex-wrap">
         @forelse ($fotografo as $foto)
             <div class="card " style="width: 18rem;">
@@ -21,10 +22,10 @@
     @forelse ($fotografo as $foto)
         <div class="col-lg-4">
             <div class="team-member">
-                <img class="mx-auto rounded-circle" src="{{ Voyager::image($foto->avatar) }}" alt="..."/>
-                <h4>{{ $foto->name }}</h4>
+                <img class="mx-auto rounded-circle" src="{{ Voyager::image($fotografo->avatar) }}" alt="..."/>
+                <h4>{{ $fotografo->name }}</h4>
                 <p class="text-muted">Cidade</p>
-                <a href="{{route('fotografos.show', [$foto->id])}}" class="btn btn-dark">Portfólio</a>
+                <a href="{{route('fotografos.show', [$fotografo->id])}}" class="btn btn-dark">Portfólio</a>
             </div>
         </div>
     @empty

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 07-Set-2022 às 01:20
--- Versão do servidor: 10.4.21-MariaDB
--- versão do PHP: 8.0.12
+-- Tempo de geração: 19-Out-2022 às 12:02
+-- Versão do servidor: 10.4.24-MariaDB
+-- versão do PHP: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -44,6 +44,28 @@ CREATE TABLE `categories` (
 INSERT INTO `categories` (`id`, `parent_id`, `order`, `name`, `slug`, `created_at`, `updated_at`) VALUES
 (1, NULL, 1, 'Category 1', 'category-1', '2022-08-19 02:06:42', '2022-08-19 02:06:42'),
 (2, NULL, 1, 'Category 2', 'category-2', '2022-08-19 02:06:42', '2022-08-19 02:06:42');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `cidades`
+--
+
+CREATE TABLE `cidades` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `nome` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sigla` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `estado_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `cidades`
+--
+
+INSERT INTO `cidades` (`id`, `nome`, `sigla`, `estado_id`, `created_at`, `updated_at`) VALUES
+(1, 'Jardim', 'JD', 1, '2022-10-10 17:41:33', '2022-10-10 17:41:33');
 
 -- --------------------------------------------------------
 
@@ -128,24 +150,68 @@ INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, 
 (54, 6, 'updated_at', 'timestamp', 'Updated At', 1, 0, 0, 0, 0, 0, NULL, 11),
 (55, 6, 'image', 'image', 'Page Image', 0, 1, 1, 1, 1, 1, NULL, 12),
 (56, 7, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
-(57, 7, 'titulo', 'text', 'Titulo', 1, 1, 1, 1, 1, 1, '{}', 3),
-(58, 7, 'descricao', 'rich_text_box', 'Descricao', 0, 1, 1, 1, 1, 1, '{}', 4),
-(59, 7, 'valor', 'number', 'Valor', 0, 1, 1, 1, 1, 1, '{}', 5),
-(60, 7, 'dia_realizado', 'date', 'Dia Realizado', 0, 1, 1, 1, 1, 1, '{}', 6),
-(62, 7, 'user_id', 'number', 'User Id', 0, 0, 0, 0, 0, 0, '{}', 7),
-(63, 7, 'created_at', 'timestamp', 'Created At', 0, 1, 1, 1, 0, 1, '{}', 8),
-(64, 7, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, '{}', 9),
+(57, 7, 'titulo', 'text', 'Titulo', 1, 1, 1, 1, 1, 1, '{\"validation\":{\"rule\":\"required|min:5\",\"messages\":{\"required\":\"O :attribute \\u00e9 obrigat\\u00f3rio.\",\"min\":\"O :attribute deve possuir :min caracteres.\"}}}', 3),
+(58, 7, 'descricao', 'rich_text_box', 'Descricao', 0, 1, 1, 1, 1, 1, '{\"validation\":{\"rule\":\"nullable|min:10|max:200\",\"messages\":{\"nullable\":\"A :attribute n\\u00e3o \\u00e9 obrigat\\u00f3ria, mas como informou, termine.\",\"min\":\"A :attribute deve ter no m\\u00ednimo :min caracteres.\",\"max\":\"A :attribute deve ter no :max caracteres.\"}}}', 4),
+(59, 7, 'valor', 'number', 'Valor', 1, 1, 1, 1, 1, 1, '{\"validation\":{\"rule\":\"required|numeric\",\"messages\":{\"required\":\"Informe o :attribute deste evento.\",\"numeric\":\"O :attribute s\\u00f3 pode ser num\\u00e9rico.\"}}}', 5),
+(60, 7, 'dia_realizado', 'date', 'Dia Realizado', 0, 1, 1, 1, 1, 1, '{\"validation\":{\"rule\":\"required|date\",\"messages\":{\"required\":\"Informe o :attribute deste evento.\",\"date\":\"A data do :attribute n\\u00e3o pode ultrapassar o dia de hoje.\"}}}', 6),
+(62, 7, 'user_id', 'number', 'User Id', 0, 0, 0, 0, 0, 0, '{}', 8),
+(63, 7, 'created_at', 'timestamp', 'Created At', 0, 0, 0, 0, 0, 0, '{}', 9),
+(64, 7, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, '{}', 10),
 (65, 8, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
 (66, 8, 'baixa_resolucao', 'image', 'Baixa Resolucao', 0, 0, 0, 0, 0, 0, '{}', 2),
-(67, 8, 'original', 'image', 'Original', 0, 1, 1, 1, 1, 1, '{\"resize\":{\"width\":\"1000\",\"height\":null},\"quality\":\"70%\",\"upsize\":true,\"thumbnails\":[{\"name\":\"medium\",\"scale\":\"50%\"},{\"name\":\"small\",\"scale\":\"25%\"},{\"name\":\"cropped\",\"crop\":{\"width\":\"300\",\"height\":\"250\"}}]}', 3),
-(68, 8, 'evento_id', 'number', 'Evento Id', 0, 1, 1, 1, 1, 1, '{}', 4),
-(69, 8, 'created_at', 'timestamp', 'Created At', 0, 1, 1, 1, 0, 1, '{}', 5),
+(67, 8, 'original', 'image', 'Original', 1, 1, 1, 1, 1, 1, '{\"resize\":{\"width\":\"1000\",\"height\":null},\"quality\":\"70%\",\"upsize\":true,\"thumbnails\":[{\"name\":\"medium\",\"scale\":\"50%\"},{\"name\":\"small\",\"scale\":\"25%\"},{\"name\":\"cropped\",\"crop\":{\"width\":\"300\",\"height\":\"250\"}}]}', 3),
+(68, 8, 'evento_id', 'number', 'Evento Id', 1, 0, 0, 0, 0, 0, '{}', 4),
+(69, 8, 'created_at', 'timestamp', 'Created At', 0, 0, 0, 0, 0, 0, '{}', 5),
 (70, 8, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, '{}', 6),
-(71, 7, 'evento_belongsto_user_relationship', 'relationship', 'users', 0, 0, 1, 0, 0, 0, '{\"model\":\"App\\\\Models\\\\User\",\"table\":\"users\",\"type\":\"belongsTo\",\"column\":\"user_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}', 10),
+(71, 7, 'evento_belongsto_user_relationship', 'relationship', 'users', 0, 0, 1, 0, 0, 0, '{\"model\":\"App\\\\Models\\\\User\",\"table\":\"users\",\"type\":\"belongsTo\",\"column\":\"user_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}', 11),
 (72, 8, 'foto_belongsto_evento_relationship', 'relationship', 'eventos', 0, 1, 1, 1, 1, 1, '{\"model\":\"App\\\\Models\\\\Evento\",\"table\":\"eventos\",\"type\":\"belongsTo\",\"column\":\"evento_id\",\"key\":\"id\",\"label\":\"titulo\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}', 7),
-(74, 7, 'evento_belongsto_foto_relationship', 'relationship', 'fotos', 0, 0, 1, 1, 1, 1, '{\"model\":\"App\\\\Models\\\\Foto\",\"table\":\"fotos\",\"type\":\"hasMany\",\"column\":\"evento_id\",\"key\":\"id\",\"label\":\"original\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}', 11),
+(74, 7, 'evento_belongsto_foto_relationship', 'relationship', 'fotos', 0, 0, 1, 0, 0, 1, '{\"model\":\"App\\\\Models\\\\Foto\",\"table\":\"fotos\",\"type\":\"hasMany\",\"column\":\"evento_id\",\"key\":\"id\",\"label\":\"original\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}', 12),
 (76, 7, 'capa_id', 'text', 'Capa Id', 0, 0, 0, 0, 0, 0, '{}', 2),
-(77, 7, 'evento_belongsto_foto_relationship_1', 'relationship', 'capa', 0, 0, 1, 1, 1, 1, '{\"model\":\"App\\\\Models\\\\Foto\",\"table\":\"fotos\",\"type\":\"belongsTo\",\"column\":\"capa_id\",\"key\":\"id\",\"label\":\"original\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}', 12);
+(77, 7, 'evento_belongsto_foto_relationship_1', 'relationship', 'capa', 0, 0, 1, 1, 1, 1, '{\"model\":\"App\\\\Models\\\\Foto\",\"table\":\"fotos\",\"type\":\"belongsTo\",\"column\":\"capa_id\",\"key\":\"id\",\"label\":\"original\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}', 13),
+(78, 11, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
+(79, 11, 'whatsapp', 'number', 'Whatsapp', 0, 1, 1, 1, 1, 1, '{\"validation\":{\"rule\":\"integer\",\"messages\":{\"integer\":\"O :attribute deve conter apenas n\\u00fameros.\"}}}', 2),
+(80, 11, 'facebook', 'text', 'Facebook', 0, 1, 1, 1, 1, 1, '{}', 3),
+(81, 11, 'instagram', 'text', 'Instagram', 0, 1, 1, 1, 1, 1, '{}', 4),
+(82, 11, 'biografia', 'text', 'Biografia', 1, 1, 1, 1, 1, 1, '{\"validation\":{\"rule\":\"required|min:20\",\"messages\":{\"required\":\"A :attribute \\u00e9 obrigat\\u00f3ria informar.\",\"min\":\"A :attribute deve ter :min caracteres.\"}}}', 5),
+(83, 11, 'site', 'text', 'Site', 0, 1, 1, 1, 1, 1, '{}', 6),
+(84, 11, 'emial_profissional', 'text', 'Email Profissional', 0, 1, 1, 1, 1, 1, '{\"validation\":{\"rule\":\"unique\",\"messages\":{\"unique\":\"O :attribute deve ser \\u00fanico.\"}}}', 7),
+(85, 11, 'nome_artistico', 'text', 'Nome Artistico', 0, 1, 1, 1, 1, 1, '{}', 8),
+(86, 11, 'status', 'select_dropdown', 'Status', 0, 1, 1, 0, 0, 0, '{\"default\":\"1\",\"options\":{\"1\":\"Cadatrado\",\"2\":\"Ativo\",\"3\":\"Inativo\"}}', 9),
+(87, 11, 'cidade_id', 'text', 'Cidade Id', 0, 0, 0, 0, 0, 0, '{}', 10),
+(88, 11, 'user_id', 'text', 'User Id', 0, 0, 0, 0, 0, 0, '{}', 11),
+(89, 11, 'created_at', 'timestamp', 'Created At', 0, 0, 0, 0, 0, 0, '{}', 12),
+(90, 11, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, '{}', 13),
+(91, 7, 'status', 'checkbox', 'Status', 1, 1, 1, 1, 0, 0, '{\"on\":\"P\\u00fablico\",\"off\":\"Privado\",\"checked\":true}', 7),
+(92, 11, 'fotografo_belongsto_user_relationship', 'relationship', 'user', 0, 1, 1, 1, 0, 0, '{\"model\":\"App\\\\Models\\\\User\",\"table\":\"users\",\"type\":\"belongsTo\",\"column\":\"user_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}', 14),
+(93, 12, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
+(94, 12, 'nome', 'text', 'Nome', 1, 1, 1, 1, 1, 1, '{}', 2),
+(95, 12, 'sigla', 'text', 'Sigla', 1, 1, 1, 1, 1, 0, '{}', 3),
+(96, 12, 'estado_id', 'text', 'Estado Id', 0, 0, 0, 0, 0, 0, '{}', 4),
+(97, 12, 'created_at', 'timestamp', 'Created At', 0, 0, 0, 0, 0, 0, '{}', 5),
+(98, 12, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, '{}', 6),
+(99, 13, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
+(100, 13, 'nome', 'text', 'Nome', 1, 1, 1, 1, 1, 1, '{}', 2),
+(101, 13, 'sigla', 'select_dropdown', 'Sigla', 1, 1, 1, 1, 1, 0, '{\"default\":\"ms\",\"options\":{\"ms\":\"MS\",\"mt\":\"MT\",\"ac\":\"AC\",\"al\":\"AL\",\"ap\":\"AP\",\"am\":\"AM\",\"ba\":\"BA\",\"ce\":\"CE\",\"df\":\"DF\",\"go\":\"GO\",\"mg\":\"MG\",\"pa\":\"PA\",\"pb\":\"PB\",\"pr\":\"PR\",\"pe\":\"PE\",\"pi\":\"PI\",\"rj\":\"RJ\",\"rn\":\"RN\",\"rs\":\"RS\",\"ro\":\"RO\",\"rr\":\"RR\",\"sc\":\"SC\",\"sp\":\"SP\",\"se\":\"SE\",\"to\":\"TO\"}}', 3),
+(102, 13, 'pais_id', 'text', 'Pais Id', 0, 0, 0, 0, 0, 0, '{}', 4),
+(103, 13, 'created_at', 'timestamp', 'Created At', 0, 0, 0, 0, 0, 0, '{}', 5),
+(104, 13, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, '{}', 6),
+(105, 11, 'fotografo_belongsto_cidade_relationship', 'relationship', 'cidade', 0, 1, 1, 1, 0, 0, '{\"model\":\"App\\\\Models\\\\Cidade\",\"table\":\"cidades\",\"type\":\"belongsTo\",\"column\":\"cidade_id\",\"key\":\"id\",\"label\":\"nome\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}', 15),
+(106, 15, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
+(107, 15, 'nome', 'text', 'Nome', 1, 1, 1, 1, 1, 1, '{}', 2),
+(108, 15, 'sigla', 'text', 'Sigla', 1, 1, 1, 1, 1, 0, '{}', 3),
+(109, 15, 'created_at', 'timestamp', 'Created At', 0, 0, 0, 0, 0, 0, '{}', 4),
+(110, 15, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, '{}', 5),
+(111, 13, 'estado_belongsto_pai_relationship', 'relationship', 'pais', 0, 1, 1, 1, 1, 1, '{\"model\":\"App\\\\Models\\\\Pais\",\"table\":\"pais\",\"type\":\"belongsTo\",\"column\":\"pais_id\",\"key\":\"id\",\"label\":\"nome\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}', 7),
+(112, 12, 'cidade_belongsto_estado_relationship', 'relationship', 'estados', 0, 1, 1, 1, 1, 1, '{\"model\":\"App\\\\Models\\\\Estado\",\"table\":\"estados\",\"type\":\"belongsTo\",\"column\":\"estado_id\",\"key\":\"id\",\"label\":\"nome\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}', 7),
+(119, 17, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
+(120, 17, 'user_id', 'text', 'User Id', 0, 0, 0, 0, 0, 0, '{}', 2),
+(121, 17, 'status', 'select_dropdown', 'Status', 0, 1, 1, 0, 0, 0, '{\"default\":\"1\",\"options\":{\"1\":\"Cadatrado\",\"2\":\"Aguardando pagamento\",\"3\":\"Pago\"}}', 3),
+(122, 17, 'created_at', 'timestamp', 'Created At', 0, 0, 0, 0, 0, 0, '{}', 4),
+(123, 17, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, '{}', 5),
+(124, 17, 'valor_total', 'text', 'Valor Total', 0, 1, 1, 0, 0, 0, '{}', 6),
+(125, 17, 'pedido_belongstomany_foto_relationship', 'relationship', 'fotos', 0, 1, 1, 1, 1, 1, '{\"model\":\"App\\\\Models\\\\Foto\",\"table\":\"fotos\",\"type\":\"belongsToMany\",\"column\":\"id\",\"key\":\"id\",\"label\":\"original\",\"pivot_table\":\"itens_pedidos\",\"pivot\":\"1\",\"taggable\":\"on\"}', 7),
+(126, 7, 'evento_belongsto_cidade_relationship', 'relationship', 'cidade', 0, 1, 1, 1, 1, 1, '{\"model\":\"App\\\\Models\\\\Cidade\",\"table\":\"cidades\",\"type\":\"belongsTo\",\"column\":\"cidade_id\",\"key\":\"id\",\"label\":\"nome\",\"pivot_table\":\"categories\",\"pivot\":\"0\",\"taggable\":\"0\"}', 14),
+(127, 7, 'cidade_id', 'text', 'Cidade Id', 0, 1, 1, 1, 1, 1, '{}', 11);
 
 -- --------------------------------------------------------
 
@@ -182,8 +248,35 @@ INSERT INTO `data_types` (`id`, `name`, `slug`, `display_name_singular`, `displa
 (4, 'categories', 'categories', 'Category', 'Categories', 'voyager-categories', 'TCG\\Voyager\\Models\\Category', NULL, '', '', 1, 0, NULL, '2022-08-19 02:06:42', '2022-08-19 02:06:42'),
 (5, 'posts', 'posts', 'Post', 'Posts', 'voyager-news', 'TCG\\Voyager\\Models\\Post', 'TCG\\Voyager\\Policies\\PostPolicy', '', '', 1, 0, NULL, '2022-08-19 02:06:42', '2022-08-19 02:06:42'),
 (6, 'pages', 'pages', 'Page', 'Pages', 'voyager-file-text', 'TCG\\Voyager\\Models\\Page', NULL, '', '', 1, 0, NULL, '2022-08-19 02:06:42', '2022-08-19 02:06:42'),
-(7, 'eventos', 'eventos', 'Evento', 'Eventos', 'voyager-calendar', 'App\\Models\\Evento', NULL, NULL, NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2022-08-19 02:12:48', '2022-09-07 02:17:33'),
-(8, 'fotos', 'fotos', 'Foto', 'Fotos', 'voyager-photos', 'App\\Models\\Foto', NULL, NULL, NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2022-08-19 02:15:05', '2022-08-27 23:58:26');
+(7, 'eventos', 'eventos', 'Evento', 'Eventos', 'voyager-calendar', 'App\\Models\\Evento', NULL, 'App\\Http\\Controllers\\VoyagerController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":\"active\"}', '2022-08-19 02:12:48', '2022-10-15 21:06:42'),
+(8, 'fotos', 'fotos', 'Foto', 'Fotos', 'voyager-photos', 'App\\Models\\Foto', NULL, 'App\\Http\\Controllers\\VoyagerController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2022-08-19 02:15:05', '2022-10-12 02:31:17'),
+(11, 'fotografos', 'fotografos', 'Fotografo', 'Fotografos', 'voyager-people', 'App\\Models\\Fotografo', NULL, 'App\\Http\\Controllers\\VoyagerController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":\"active\"}', '2022-10-08 03:08:02', '2022-10-16 23:34:07'),
+(12, 'cidades', 'cidades', 'Cidade', 'Cidades', 'voyager-compass', 'App\\Models\\Cidade', NULL, 'App\\Http\\Controllers\\VoyagerController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2022-10-10 13:35:07', '2022-10-11 13:20:20'),
+(13, 'estados', 'estados', 'Estado', 'Estados', 'voyager-pirate', 'App\\Models\\Estado', NULL, 'App\\Http\\Controllers\\VoyagerController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2022-10-10 13:45:15', '2022-10-10 17:20:23'),
+(15, 'pais', 'pais', 'Pai', 'Pais', 'voyager-world', 'App\\Models\\Pais', NULL, 'App\\Http\\Controllers\\VoyagerController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null}', '2022-10-10 13:52:09', '2022-10-10 13:52:09'),
+(17, 'pedidos', 'pedidos', 'Pedido', 'Pedidos', 'voyager-buy', 'App\\Models\\Pedido', NULL, 'App\\Http\\Controllers\\VoyagerController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2022-10-15 01:37:45', '2022-10-15 01:40:57');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `estados`
+--
+
+CREATE TABLE `estados` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `nome` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sigla` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pais_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `estados`
+--
+
+INSERT INTO `estados` (`id`, `nome`, `sigla`, `pais_id`, `created_at`, `updated_at`) VALUES
+(1, 'Mato Grosso do sul', 'ms', 1, '2022-10-10 17:38:41', '2022-10-10 17:38:41');
 
 -- --------------------------------------------------------
 
@@ -195,25 +288,26 @@ CREATE TABLE `eventos` (
   `id` int(10) UNSIGNED NOT NULL,
   `titulo` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `descricao` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `valor` float DEFAULT NULL,
+  `valor` float NOT NULL,
   `dia_realizado` date DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `capa_id` int(10) UNSIGNED DEFAULT 1
+  `capa_id` int(10) UNSIGNED DEFAULT 1,
+  `status` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cidade_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Extraindo dados da tabela `eventos`
 --
 
-INSERT INTO `eventos` (`id`, `titulo`, `descricao`, `valor`, `dia_realizado`, `user_id`, `created_at`, `updated_at`, `capa_id`) VALUES
-(12, 'Teste', '<p>jhgfds</p>', 22, '2022-08-27', 1, '2022-08-27 23:27:00', '2022-08-27 23:45:20', 11),
-(15, 'Ana´s photo', '<p>instagram de fotos lifestyle do dia a dia&nbsp;</p>', 15, '2022-01-15', 3, '2022-08-31 14:27:00', '2022-08-31 22:27:34', 11),
-(19, 'Edificações', '<p>curso para aprender a derrubar paredes, fazer concetro e enganar clientes.&nbsp;</p>', 5, '2022-08-13', 1, '2022-09-01 01:58:07', '2022-09-01 01:58:07', 1),
-(20, 'festa', '<p>feta de louco</p>', 15, '2022-08-08', 1, '2022-09-01 02:03:29', '2022-09-01 02:03:29', 1),
-(21, 'Leonardo', '<p>viana quer ver o tcc</p>', 2000, '2022-09-02', 3, '2022-09-02 17:42:01', '2022-09-02 17:42:01', 1),
-(22, 'Capa no novo teste', '<p>dfghm,mnbvcx</p>', NULL, NULL, 1, '2022-09-07 02:18:02', '2022-09-07 02:18:02', 1);
+INSERT INTO `eventos` (`id`, `titulo`, `descricao`, `valor`, `dia_realizado`, `user_id`, `created_at`, `updated_at`, `capa_id`, `status`, `cidade_id`) VALUES
+(23, 'festa', NULL, 15, NULL, 1, '2022-10-07 01:08:20', '2022-10-08 01:17:06', 18, '', NULL),
+(24, 'Teste de rota', NULL, 20, NULL, 1, '2022-10-07 20:14:43', '2022-10-07 20:14:43', 14, '', NULL),
+(25, 'evento fotografo', NULL, 10, '2022-08-08', 3, '2022-10-07 21:16:42', '2022-10-15 19:44:06', 1, '1', NULL),
+(26, 'foto teste', NULL, 10, NULL, 1, '2022-10-08 03:12:08', '2022-10-08 03:12:08', NULL, '', NULL),
+(27, 'festa louca', '<p>asdfghjkl&ccedil;</p>', 12, '2222-11-11', 1, '2022-10-10 12:50:43', '2022-10-18 01:29:09', 14, '1', 1);
 
 -- --------------------------------------------------------
 
@@ -234,14 +328,43 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `fotografos`
+--
+
+CREATE TABLE `fotografos` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `whatsapp` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `facebook` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `instagram` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `biografia` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `site` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `emial_profissional` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nome_artistico` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `cidade_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `fotografos`
+--
+
+INSERT INTO `fotografos` (`id`, `whatsapp`, `facebook`, `instagram`, `biografia`, `site`, `emial_profissional`, `nome_artistico`, `status`, `cidade_id`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, '67999999999', 'facebook do fotógrafo', 'Instagram do fotógrafo', 'isso mesmo, eu sou fotógrafo e tiro fotos', NULL, 'fotografo@fotografo.com', NULL, 2, 1, 3, '2022-10-10 17:44:00', '2022-10-17 03:30:35');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `fotos`
 --
 
 CREATE TABLE `fotos` (
   `id` int(10) UNSIGNED NOT NULL,
   `baixa_resolucao` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `original` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `evento_id` int(11) DEFAULT NULL,
+  `original` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `evento_id` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -251,11 +374,26 @@ CREATE TABLE `fotos` (
 --
 
 INSERT INTO `fotos` (`id`, `baixa_resolucao`, `original`, `evento_id`, `created_at`, `updated_at`) VALUES
-(1, NULL, 'fotos\\August2022\\iTtHSJ6L4UcawfkBDs0n.jpg', 12, '2022-08-31 14:24:54', '2022-08-31 14:24:54'),
-(11, NULL, 'fotos\\August2022\\xJrtfnxrOM4ge1PZ3Htl.jpg', 12, '2022-08-27 23:58:00', '2022-08-27 23:58:12'),
-(13, NULL, 'fotos\\August2022\\Sn2J9iynbV84oLKtzofM.jpg', 15, '2022-08-31 14:30:37', '2022-08-31 14:30:37'),
-(14, NULL, 'fotos\\August2022\\uAOlZQWw3TgNMpudlWZs.jpg', 12, '2022-08-31 22:48:39', '2022-08-31 22:48:39'),
-(18, NULL, 'fotos\\September2022\\EqTLq6Jm2baCUQvpeQZr.jpg', 21, '2022-09-02 17:44:24', '2022-09-02 17:44:24');
+(1, NULL, 'fotos\\September2022\\blObCGbxQZDZ3531uX41.jpg', 12, '2022-08-31 14:24:00', '2022-09-18 03:12:01'),
+(13, NULL, 'fotos\\September2022\\zGzzk0oO25qd7JkogoHc.jpg', 15, '2022-08-31 14:30:00', '2022-09-18 03:11:46'),
+(14, NULL, 'fotos\\September2022\\GjDOZi2RqqUcwuhcXxe0.jpg', 27, '2022-08-31 22:48:00', '2022-10-18 01:27:27'),
+(18, NULL, 'fotos\\September2022\\Icv0MAMidA0KVNZ4LRrl.webp', 21, '2022-09-02 17:44:00', '2022-09-18 03:11:12'),
+(19, NULL, 'fotos\\October2022\\yP2uuJEiwwRteqMSXdN4.jpg', 23, '2022-10-07 01:09:11', '2022-10-07 01:09:11'),
+(20, NULL, 'fotos\\October2022\\Zkqtzgex1KRB05Ga2m8u.jpg', 23, '2022-10-12 02:31:45', '2022-10-12 02:31:45');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `itens_pedidos`
+--
+
+CREATE TABLE `itens_pedidos` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `pedido_id` int(11) DEFAULT NULL,
+  `foto_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -318,7 +456,12 @@ INSERT INTO `menu_items` (`id`, `menu_id`, `title`, `url`, `target`, `icon_class
 (12, 1, 'Posts', '', '_self', 'voyager-news', NULL, NULL, 6, '2022-08-19 02:06:42', '2022-08-19 02:06:42', 'voyager.posts.index', NULL),
 (13, 1, 'Pages', '', '_self', 'voyager-file-text', NULL, NULL, 7, '2022-08-19 02:06:42', '2022-08-19 02:06:42', 'voyager.pages.index', NULL),
 (14, 1, 'Eventos', '', '_self', 'voyager-calendar', NULL, NULL, 15, '2022-08-19 02:12:48', '2022-08-19 02:12:48', 'voyager.eventos.index', NULL),
-(15, 1, 'Fotos', '', '_self', 'voyager-photos', NULL, NULL, 16, '2022-08-19 02:15:05', '2022-08-19 02:15:05', 'voyager.fotos.index', NULL);
+(15, 1, 'Fotos', '', '_self', 'voyager-photos', NULL, NULL, 16, '2022-08-19 02:15:05', '2022-08-19 02:15:05', 'voyager.fotos.index', NULL),
+(17, 1, 'Fotografos', '', '_self', NULL, NULL, NULL, 17, '2022-10-08 03:08:02', '2022-10-08 03:08:02', 'voyager.fotografos.index', NULL),
+(18, 1, 'Cidades', '', '_self', 'voyager-compass', NULL, NULL, 18, '2022-10-10 13:35:07', '2022-10-10 13:35:07', 'voyager.cidades.index', NULL),
+(19, 1, 'Estados', '', '_self', 'voyager-pirate', NULL, NULL, 19, '2022-10-10 13:45:15', '2022-10-10 13:45:15', 'voyager.estados.index', NULL),
+(20, 1, 'Pais', '', '_self', 'voyager-world', NULL, NULL, 20, '2022-10-10 13:52:09', '2022-10-10 13:52:09', 'voyager.pais.index', NULL),
+(22, 1, 'Pedidos', '', '_self', 'voyager-buy', NULL, NULL, 21, '2022-10-15 01:37:45', '2022-10-15 01:37:45', 'voyager.pedidos.index', NULL);
 
 -- --------------------------------------------------------
 
@@ -398,6 +541,27 @@ INSERT INTO `pages` (`id`, `author_id`, `title`, `excerpt`, `body`, `image`, `sl
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `pais`
+--
+
+CREATE TABLE `pais` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `nome` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sigla` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `pais`
+--
+
+INSERT INTO `pais` (`id`, `nome`, `sigla`, `created_at`, `updated_at`) VALUES
+(1, 'Brasil', 'Br', '2022-10-10 17:38:17', '2022-10-10 17:38:17');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `password_resets`
 --
 
@@ -405,6 +569,21 @@ CREATE TABLE `password_resets` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `pedidos`
+--
+
+CREATE TABLE `pedidos` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `valor_total` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -475,7 +654,32 @@ INSERT INTO `permissions` (`id`, `key`, `table_name`, `created_at`, `updated_at`
 (47, 'read_fotos', 'fotos', '2022-08-19 02:15:05', '2022-08-19 02:15:05'),
 (48, 'edit_fotos', 'fotos', '2022-08-19 02:15:05', '2022-08-19 02:15:05'),
 (49, 'add_fotos', 'fotos', '2022-08-19 02:15:05', '2022-08-19 02:15:05'),
-(50, 'delete_fotos', 'fotos', '2022-08-19 02:15:05', '2022-08-19 02:15:05');
+(50, 'delete_fotos', 'fotos', '2022-08-19 02:15:05', '2022-08-19 02:15:05'),
+(56, 'browse_fotografos', 'fotografos', '2022-10-08 03:08:02', '2022-10-08 03:08:02'),
+(57, 'read_fotografos', 'fotografos', '2022-10-08 03:08:02', '2022-10-08 03:08:02'),
+(58, 'edit_fotografos', 'fotografos', '2022-10-08 03:08:02', '2022-10-08 03:08:02'),
+(59, 'add_fotografos', 'fotografos', '2022-10-08 03:08:02', '2022-10-08 03:08:02'),
+(60, 'delete_fotografos', 'fotografos', '2022-10-08 03:08:02', '2022-10-08 03:08:02'),
+(61, 'browse_cidades', 'cidades', '2022-10-10 13:35:07', '2022-10-10 13:35:07'),
+(62, 'read_cidades', 'cidades', '2022-10-10 13:35:07', '2022-10-10 13:35:07'),
+(63, 'edit_cidades', 'cidades', '2022-10-10 13:35:07', '2022-10-10 13:35:07'),
+(64, 'add_cidades', 'cidades', '2022-10-10 13:35:07', '2022-10-10 13:35:07'),
+(65, 'delete_cidades', 'cidades', '2022-10-10 13:35:07', '2022-10-10 13:35:07'),
+(66, 'browse_estados', 'estados', '2022-10-10 13:45:15', '2022-10-10 13:45:15'),
+(67, 'read_estados', 'estados', '2022-10-10 13:45:15', '2022-10-10 13:45:15'),
+(68, 'edit_estados', 'estados', '2022-10-10 13:45:15', '2022-10-10 13:45:15'),
+(69, 'add_estados', 'estados', '2022-10-10 13:45:15', '2022-10-10 13:45:15'),
+(70, 'delete_estados', 'estados', '2022-10-10 13:45:15', '2022-10-10 13:45:15'),
+(71, 'browse_pais', 'pais', '2022-10-10 13:52:09', '2022-10-10 13:52:09'),
+(72, 'read_pais', 'pais', '2022-10-10 13:52:09', '2022-10-10 13:52:09'),
+(73, 'edit_pais', 'pais', '2022-10-10 13:52:09', '2022-10-10 13:52:09'),
+(74, 'add_pais', 'pais', '2022-10-10 13:52:09', '2022-10-10 13:52:09'),
+(75, 'delete_pais', 'pais', '2022-10-10 13:52:09', '2022-10-10 13:52:09'),
+(81, 'browse_pedidos', 'pedidos', '2022-10-15 01:37:45', '2022-10-15 01:37:45'),
+(82, 'read_pedidos', 'pedidos', '2022-10-15 01:37:45', '2022-10-15 01:37:45'),
+(83, 'edit_pedidos', 'pedidos', '2022-10-15 01:37:45', '2022-10-15 01:37:45'),
+(84, 'add_pedidos', 'pedidos', '2022-10-15 01:37:45', '2022-10-15 01:37:45'),
+(85, 'delete_pedidos', 'pedidos', '2022-10-15 01:37:45', '2022-10-15 01:37:45');
 
 -- --------------------------------------------------------
 
@@ -558,7 +762,37 @@ INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
 (49, 1),
 (49, 3),
 (50, 1),
-(50, 3);
+(50, 3),
+(56, 1),
+(56, 2),
+(56, 3),
+(57, 1),
+(57, 2),
+(57, 3),
+(58, 1),
+(58, 3),
+(59, 1),
+(60, 1),
+(61, 1),
+(62, 1),
+(63, 1),
+(64, 1),
+(65, 1),
+(66, 1),
+(67, 1),
+(68, 1),
+(69, 1),
+(70, 1),
+(71, 1),
+(72, 1),
+(73, 1),
+(74, 1),
+(75, 1),
+(81, 1),
+(82, 1),
+(83, 1),
+(84, 1),
+(85, 1);
 
 -- --------------------------------------------------------
 
@@ -762,9 +996,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role_id`, `name`, `email`, `avatar`, `email_verified_at`, `password`, `remember_token`, `settings`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Admin', 'admin@admin.com', 'users/default.png', NULL, '$2y$10$gaLAiqQGEEmjgEJGDI4aOO.pL604a1kF3vbmffymjVyfDwPR9he3O', 'qIVacH5AQJzkPGB982N1LAALPOkAEg3hKkGFAfLHoLZKNj91z4afgaVp9dxO', NULL, '2022-08-19 02:06:42', '2022-08-19 02:06:42'),
+(1, 1, 'Admin', 'admin@admin.com', 'users/default.png', NULL, '$2y$10$gaLAiqQGEEmjgEJGDI4aOO.pL604a1kF3vbmffymjVyfDwPR9he3O', 'qT9GkjFwCyhUL0rUoI6VUApdfZtUa3Wpe2HgXaEMzIzLNDvsU5JCsNUXHt8X', NULL, '2022-08-19 02:06:42', '2022-08-19 02:06:42'),
 (2, 2, 'user', 'user@user.com', 'users/default.png', NULL, '$2y$10$bQcCOFNxeC9dt5K.oyNuNOYLA82ryq8G966U2msSOTYubZKayaiO6', NULL, '{\"locale\":\"en\"}', '2022-08-19 23:58:15', '2022-08-19 23:58:15'),
-(3, 3, 'Fotografo', 'foto@foto.com', 'users/default.png', NULL, '$2y$10$1xoM1oV4h8db2p131j5reeiZT4t3duMtbZ8Q9JsivCL/IHayHNPsG', NULL, '{\"locale\":\"en\"}', '2022-08-20 20:12:28', '2022-08-20 20:12:28');
+(3, 3, 'Fotografo', 'foto@foto.com', 'users/default.png', NULL, '$2y$10$1xoM1oV4h8db2p131j5reeiZT4t3duMtbZ8Q9JsivCL/IHayHNPsG', NULL, '{\"locale\":\"en\"}', '2022-08-20 20:12:28', '2022-08-20 20:12:28'),
+(4, 3, 'Ana', 'ana@foto.com', 'users/default.png', NULL, '$2y$10$ofKfOy9.fo27.C86dlorUuj6TF18yrcHWF7bcfg5UZgPMlgmP2D6C', NULL, '{\"locale\":\"en\"}', '2022-09-18 03:21:54', '2022-09-18 03:21:54');
 
 -- --------------------------------------------------------
 
@@ -790,6 +1025,12 @@ ALTER TABLE `categories`
   ADD KEY `categories_parent_id_foreign` (`parent_id`);
 
 --
+-- Índices para tabela `cidades`
+--
+ALTER TABLE `cidades`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices para tabela `data_rows`
 --
 ALTER TABLE `data_rows`
@@ -805,6 +1046,12 @@ ALTER TABLE `data_types`
   ADD UNIQUE KEY `data_types_slug_unique` (`slug`);
 
 --
+-- Índices para tabela `estados`
+--
+ALTER TABLE `estados`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices para tabela `eventos`
 --
 ALTER TABLE `eventos`
@@ -818,9 +1065,21 @@ ALTER TABLE `failed_jobs`
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
+-- Índices para tabela `fotografos`
+--
+ALTER TABLE `fotografos`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices para tabela `fotos`
 --
 ALTER TABLE `fotos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `itens_pedidos`
+--
+ALTER TABLE `itens_pedidos`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -851,10 +1110,23 @@ ALTER TABLE `pages`
   ADD UNIQUE KEY `pages_slug_unique` (`slug`);
 
 --
+-- Índices para tabela `pais`
+--
+ALTER TABLE `pais`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `pais_sigla_unique` (`sigla`);
+
+--
 -- Índices para tabela `password_resets`
 --
 ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
+
+--
+-- Índices para tabela `pedidos`
+--
+ALTER TABLE `pedidos`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Índices para tabela `permissions`
@@ -941,22 +1213,34 @@ ALTER TABLE `categories`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT de tabela `cidades`
+--
+ALTER TABLE `cidades`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de tabela `data_rows`
 --
 ALTER TABLE `data_rows`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
 
 --
 -- AUTO_INCREMENT de tabela `data_types`
 --
 ALTER TABLE `data_types`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT de tabela `estados`
+--
+ALTER TABLE `estados`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `eventos`
 --
 ALTER TABLE `eventos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT de tabela `failed_jobs`
@@ -965,10 +1249,22 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de tabela `fotografos`
+--
+ALTER TABLE `fotografos`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de tabela `fotos`
 --
 ALTER TABLE `fotos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT de tabela `itens_pedidos`
+--
+ALTER TABLE `itens_pedidos`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `menus`
@@ -980,13 +1276,13 @@ ALTER TABLE `menus`
 -- AUTO_INCREMENT de tabela `menu_items`
 --
 ALTER TABLE `menu_items`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de tabela `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de tabela `pages`
@@ -995,10 +1291,22 @@ ALTER TABLE `pages`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT de tabela `pais`
+--
+ALTER TABLE `pais`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de tabela `pedidos`
+--
+ALTER TABLE `pedidos`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de tabela `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- AUTO_INCREMENT de tabela `personal_access_tokens`
@@ -1040,7 +1348,7 @@ ALTER TABLE `translations`
 -- AUTO_INCREMENT de tabela `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Restrições para despejos de tabelas

@@ -10,7 +10,6 @@
 
     <div class="d-flex mb-3 justify-content-evenly">
         <div class="me-auto p-5"> Itens:</div>
-        <div class=" p-5">Valor:</div>
     </div>
 
     <section class=" mx-5 justify-content-evenly flex-wrap">
@@ -22,9 +21,9 @@
                 </div>
                 <div class="d-flex justify-content-evenly p-lg-5">
                     <p class="justify-content-evenly">
-                        [titulo do evento]
-                        [fotografo do evento: nome]
-                        [valor da foto]
+                        {{ $foto?->evento?->titulo }}
+                        {{ $foto?->user?->name }}
+                        {{ $foto?->evento?->valor }}
                     </p>
                 </div>
                 <div class="ms-auto pt-5 d-flex justify-content-end ">
