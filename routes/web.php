@@ -86,15 +86,23 @@ Route::get('/fotografos/{id}', function ($id)  {
     $perfil = \App\Models\Fotografo::all ();
     $fotografo = User::find($id);
     return view('fotografo.perfil',compact('fotografo', 'perfil'));
-    })->name('fotografos.show');
+})->name('fotografos.show');
+
+// Rota para enviar e-mail para o cliente
+Route::get('/mail', function (){
+
+    $user = new User();
+    $user->name = 'teste';
+    $user->email = 'gabriel.freitas6@estudante.ifms.edu.br';
+    //return new \App\Mail\UserEmail($user);
+     \Illuminate\Support\Facades\Mail::send(new \App\Mail\UserEmail($user));
+})->name('mail');
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
 
 Auth::routes();
-
-Route::get('/mail', [\App\Mail\UserEmail::class, 'build'])->name('mail.build');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/eventos',[\App\Http\Controllers\EventoController::class, 'index'])->name('eventos');
