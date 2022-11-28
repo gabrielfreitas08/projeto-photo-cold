@@ -19,4 +19,5 @@ class Foto extends Model
         }
         return $query->where('user_id', $user->getKey());
     }
+
 }

@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 
 class Fotografo extends Model
 {
+    public const ATIVO = 2;
+    public const INATIVO = 1;
 
     /*
      * Função para verificar se o usuário Fotógrafo possui todos os dados, se não possuir, mostrar apenas os dados recebidos
@@ -38,5 +40,14 @@ class Fotografo extends Model
         return $query->where('user_id', $user->getKey());
     }
 
+    public function user(){
+
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function cidade(){
+
+        return $this->belongsTo(Cidade::class);
+    }
 
 }

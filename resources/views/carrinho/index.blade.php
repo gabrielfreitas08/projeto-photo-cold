@@ -13,17 +13,17 @@
     </div>
 
     <section class=" mx-5 justify-content-evenly flex-wrap">
-        @forelse ($carrinho as $foto)
+        @forelse ($carrinho as $produto)
             <div class="d-flex p-2 alert alert-secondary">
                 <div>
-                    <img width="200" height="200" src="{{ Voyager::image($carrinho->thumbnail('medium', 'original')) }}"
+                    <img width="200" height="200" src="{{ Voyager::image($produto->foto->thumbnail('medium', 'original')) }}"
                          class="" alt="...">
                 </div>
                 <div class="d-flex justify-content-evenly p-lg-5">
                     <p class="justify-content-evenly">
-                        {{ $foto?->evento?->titulo }}
-                        {{ $foto?->user?->name }}
-                        {{ $foto?->evento?->valor }}
+                        {{ $produto->evento->titulo }}
+                        {{ $produto?->user->name }}
+                        {{ $produto->evento->valor }}
                     </p>
                 </div>
                 <div class="ms-auto pt-5 d-flex justify-content-end ">
@@ -37,7 +37,7 @@
     </section>
 
     <div class="d-flex justify-content-end p-md-5">
-        <a class="" href="#!">
+        <a class="" href="{{route('carrinho.finalizacao',[$carrinho->id])}}">
             <button type="button" class="btn btn-dark">Continuar a compra</button>
         </a>
     </div>

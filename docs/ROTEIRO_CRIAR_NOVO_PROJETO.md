@@ -16,3 +16,24 @@ php artisan voyager:install --with-dummy
 
 # Rodar a aplicação
 php artisan serve
+# Laravel ele utiliza a arquitetura MVC
+# Model => app\Models (Tabelas banco)
+# Controllers => app\Http\Controllers (gerencia tudo)
+# Views => resources\views (telas do app)
+# Routes (Rotas) => routes\wep.php
+
+# baixar as dependencias
+composer install
+# rodar o servidor
+php artisan serve
+
+Se você instalou com os dados dummy, um usuário foi criado para você com as seguintes credenciais de login:
+email: admin@admin.com
+password: password
+
+# Tecnologias
+[Bootstrap](https://getbootstrap.com/docs/5.2/getting-started/introduction/)
+[Font Awesome](https://fontawesome.com/search?o=r&m=free)
+[Laravel](https://laravel.com/docs/9.x)
+[Voyager](https://voyager-docs.devdojo.com/bread/introduction)
+

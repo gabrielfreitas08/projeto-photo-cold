@@ -33,14 +33,15 @@ Route::get('/eventos', function () {
     return view('evento.index', compact('eventos'));
 })->name('eventos');*/
 
+
 // Rota das fotos
 Route::get('/fotos/{id}', function ($id) {
 
-   /* dd($id);*/
     $evento = Evento::find($id);
     /*$fotos = Foto::all();*/
     return view('evento.foto', compact('evento'));
 })->name('fotos.show');
+
 
 // Rota de ver fotos
 Route::get('/fotos', function () {
@@ -50,52 +51,49 @@ Route::get('/fotos', function () {
     return view('evento.foto', compact('fotos'));
 })->name('fotos');
 
+
 // Rota de visualização dos eventos
 Route::get('/eventos/{id}', function ($id)  {
 
-    $evento = Evento::find($id);
-    return view('evento.show',compact('evento'));
+    $eventos = Evento::find($id);
+    return view('evento.show',compact('eventos'));
 })->name('eventos.show');
 
-// rota para adcionar a foto do evento no carrinho
-Route::get('/carrinho/{id}', function ($id) {
 
-    $carrinho = Foto::find($id);
-    return view('carrinho.index', compact('carrinho'));
+// rota para adcionar a foto do evento no carrinho
+/*Route::get('/carrinho', function () {
+
+    $info = Evento::first();
+    $carrinho = Foto::first();
+    return view('carrinho.index', compact('carrinho', 'info'));
     //return redirect('eventos.show', compact('carrinho'));
-})->name('carrinho');
+})->name('carrinho');*/
+
 
 // rota para finalizar a compra do carrinhp
-Route::get('/carrinho/final', function () {
+/*Route::get('/carrinho/final', function () {
 
-    $carrinho = Foto::find();
-    return view('carrinho.index', compact('carrinho'));
-})->name('carrinho.finalizacao');
+    $fotos = Foto::find();
+    return view('carrinho.finalizacao', compact('fotos'));
+})->name('carrinho.finalizacao');*/
 
-// rota para visualizar os fotografos cadastrados na plataforma
-/*
-Route::get('/fotografos', function () {
-
-    $fotografo = User::where ('role_id',3)->get();
-   return view('fotografo.fotografo', compact('fotografo'));
-})->name('fotografos');*/
 
 // Rota de visualização dos perfis dos fotografos
 Route::get('/fotografos/{id}', function ($id)  {
 
-    $perfil = \App\Models\Fotografo::all ();
-    $fotografo = User::find($id);
-    return view('fotografo.perfil',compact('fotografo', 'perfil'));
+    $fotografos = \App\Models\Fotografo::find($id);
+    return view('fotografo.perfil',compact('fotografos'));
 })->name('fotografos.show');
 
 // Rota para enviar e-mail para o cliente
-Route::get('/mail', function (){
+Route::get('/mail/{id}', function ($id){
 
-    $user = new User();
-    $user->name = 'teste';
-    $user->email = 'gabriel.freitas6@estudante.ifms.edu.br';
-    //return new \App\Mail\UserEmail($user);
-     \Illuminate\Support\Facades\Mail::send(new \App\Mail\UserEmail($user));
+    $user =  User::find($id);
+
+    $fotos = Foto::take(10)->get();
+
+    //return new \App\Mail\UserEmail($user, $fotos);
+     \Illuminate\Support\Facades\Mail::send(new \App\Mail\UserEmail($user, $fotos));
 })->name('mail');
 
 Route::group(['prefix' => 'admin'], function () {
@@ -107,3 +105,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/eventos',[\App\Http\Controllers\EventoController::class, 'index'])->name('eventos');
 Route::get('/fotografos', [\App\Http\Controllers\FotografoController::class, 'index'])->name('fotografos');
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('/carrinho', [\App\Http\Controllers\CarrinhoController::class, 'store'])->name('carrinho.store');
+});

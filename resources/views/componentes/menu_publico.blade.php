@@ -11,7 +11,11 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="/carrinho/{id}"><i class="fa-solid fa-cart-shopping"></i></a>
+                    <a id="carrinho" class="nav-link  position-relative"
+                       data-bs-toggle="modal" data-bs-target="#carrinho-modal">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span id="carrinho-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill"></span>
+                    </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('eventos')}}">Eventos</a>

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pedido;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CarrinhoController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +16,7 @@ class CarrinhoController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -23,7 +26,7 @@ class CarrinhoController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -34,7 +37,12 @@ class CarrinhoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $carrinho = new Pedido();
+        $carrinho->status = 2;
+        $carrinho->save($request->fotos);
+        $carrinho->save();
+        $carrinho->user_id = Auth::user()->id ?? 1;
+        return view('carrinho.finalizacao', compact('carrinho'));
     }
 
     /**

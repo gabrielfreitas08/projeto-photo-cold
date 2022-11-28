@@ -17,7 +17,7 @@ class Evento extends Model
      * @param  \DateTimeInterface  $date
      * @return string
      */
-    /*protected function serializeDate(DateTimeInterface $date)
+    /*protected function serializeDate(\DateTimeInterface $date)
     {
         return $date->format('d-m-Y');
     }*/
@@ -52,27 +52,12 @@ class Evento extends Model
         return $this->hasMany(Foto::class, 'evento_id', 'id');
     }
 
-    /*public function add ()
-    {
+    public function cidade(){
+        return $this->belongsTo(Cidade::class);
+    }
 
-        $this->middleware('VerifyCsrfToken');
-
-        $req = Request();
-        $foto = $req->input('id');
-
-        $produto = Foto::find($foto);
-        if (empty($produto->id)){
-            $req->session()->flash('mensagem-falha', 'foto não encrontrada');
-            return redirect()->route('eventos.show');
-        }
-
-        $user = Auth::id();
-
-        $foto = Pedido::consulta([
-           'user_id' => $user,
-            'status' => 'RE' // reservada
-        ]);
-
-    }*/
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 
 }

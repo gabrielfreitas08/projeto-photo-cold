@@ -14,13 +14,18 @@ class UserEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    private $user;
+    private $fotos;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct(User $user, $fotos)
     {
+        $this->user = $user; // persiste dentro da classe
+        $this->fotos = $fotos;
         $user = Auth::user();
     }
 
@@ -31,10 +36,20 @@ class UserEmail extends Mailable
      */
     public function build()
     {
-        $this->subject('teste');
-        $this->attach(storage_path('app/public/posts/post1.jpg'));
-        $this->to('teste@teste.com','Photo Cold');
+        $this->subject('Teste das fotos');
 
-        return $this->markdown('mail.index');
+        foreach($this->fotos as $foto) {
+            //dd(public_path(), storage_path(), $foto->original);
+            $file = storage_path( ) . '\app\public\\' . $foto->original;
+            $this->attach($file);
+
+        }
+
+        $this->to($this->user->email, $this->user->name);
+        return $this->markdown('mail.index', data: [
+            'user' => $this->user
+        ]);
+
+        // criar uma página para redirecionar o usuário
     }
 }
