@@ -1,10 +1,7 @@
 <?php
 
-use App\Models\{
-    User,
-    Evento,
-    Foto,
-    };
+use Illuminate\Support\Facades\Auth;
+use App\Models\{Fotografo, User, Evento, Foto};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,17 +20,6 @@ Route::get('/', function () {
 })->name('home');
 
 
-// Rota da classe Evento
-/*
-Route::get('/eventos', function () {
-
-    $eventos = Evento::where([
-        'status' => 'on' // é para retornar eventos públicos
-    ]);
-    return view('evento.index', compact('eventos'));
-})->name('eventos');*/
-
-
 // Rota das fotos
 Route::get('/fotos/{id}', function ($id) {
 
@@ -43,7 +29,7 @@ Route::get('/fotos/{id}', function ($id) {
 })->name('fotos.show');
 
 
-// Rota de ver fotos
+// Rota para visualizar todas as fotos
 Route::get('/fotos', function () {
     /* dd($id);
     $evento = Evento::find($id);*/
@@ -60,41 +46,30 @@ Route::get('/eventos/{id}', function ($id)  {
 })->name('eventos.show');
 
 
-// rota para adcionar a foto do evento no carrinho
-/*Route::get('/carrinho', function () {
-
-    $info = Evento::first();
-    $carrinho = Foto::first();
-    return view('carrinho.index', compact('carrinho', 'info'));
-    //return redirect('eventos.show', compact('carrinho'));
-})->name('carrinho');*/
-
-
-// rota para finalizar a compra do carrinhp
-/*Route::get('/carrinho/final', function () {
-
-    $fotos = Foto::find();
-    return view('carrinho.finalizacao', compact('fotos'));
-})->name('carrinho.finalizacao');*/
-
-
 // Rota de visualização dos perfis dos fotografos
 Route::get('/fotografos/{id}', function ($id)  {
 
-    $fotografos = \App\Models\Fotografo::find($id);
+    $fotografos = Fotografo::find($id);
     return view('fotografo.perfil',compact('fotografos'));
 })->name('fotografos.show');
+
 
 // Rota para enviar e-mail para o cliente
 Route::get('/mail/{id}', function ($id){
 
-    $user =  User::find($id);
+    $tipoUsuarioLogado = Auth::user()->role()->first();
 
-    $fotos = Foto::take(10)->get();
+    // autorização para verificar o tipo de usuario
+    if ($tipoUsuarioLogado->name != 'admin' and $tipoUsuarioLogado->name != 'fotografo'){
+        return redirect()->route('eventos');
+    }
+    $pedido =  \App\Models\Pedido::find($id);
 
     //return new \App\Mail\UserEmail($user, $fotos);
-     \Illuminate\Support\Facades\Mail::send(new \App\Mail\UserEmail($user, $fotos));
+     \Illuminate\Support\Facades\Mail::send(new \App\Mail\UserEmail($pedido));
+     return back();
 })->name('mail');
+
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
@@ -105,6 +80,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/eventos',[\App\Http\Controllers\EventoController::class, 'index'])->name('eventos');
 Route::get('/fotografos', [\App\Http\Controllers\FotografoController::class, 'index'])->name('fotografos');
+Route::get('/pedido/{id}/pagamento', [\App\Http\Controllers\PedidoController::class, 'index'])->name('pagamento.index');
 
 Route::middleware(['auth'])->group(function () {
     Route::post('/carrinho', [\App\Http\Controllers\CarrinhoController::class, 'store'])->name('carrinho.store');

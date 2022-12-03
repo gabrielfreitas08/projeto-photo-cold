@@ -3,6 +3,7 @@
 namespace App\Mail;
 
 use App\Models\Foto;
+use App\Models\Pedido;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -14,19 +15,17 @@ class UserEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    private $user;
-    private $fotos;
+    private $pedido;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(User $user, $fotos)
+    public function __construct(Pedido $pedido)
     {
-        $this->user = $user; // persiste dentro da classe
-        $this->fotos = $fotos;
-        $user = Auth::user();
+        $this->pedido = $pedido; // persiste dentro da classe
+
     }
 
     /**
@@ -36,18 +35,23 @@ class UserEmail extends Mailable
      */
     public function build()
     {
-        $this->subject('Teste das fotos');
 
-        foreach($this->fotos as $foto) {
+        $this->subject("Fotos do Pedido {$this->pedido->id}");
+
+        $fotos = $this->pedido->fotos()->get();
+        $usuario = User::find($this->pedido->user_id);
+
+        foreach($fotos as $foto) {
+
             //dd(public_path(), storage_path(), $foto->original);
             $file = storage_path( ) . '\app\public\\' . $foto->original;
             $this->attach($file);
 
         }
 
-        $this->to($this->user->email, $this->user->name);
+        $this->to($usuario->email, $usuario->name);
         return $this->markdown('mail.index', data: [
-            'user' => $this->user
+            'user' => $usuario
         ]);
 
         // criar uma página para redirecionar o usuário

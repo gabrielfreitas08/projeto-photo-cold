@@ -16,7 +16,7 @@
                     <div class="form-floating align-items-end">
                         <select class="form-select" id="floatingSelectGrid">
                             {{-- <option selected>Filtrar por</option>--}}
-                            <option selected value="estado">Estado</option>
+                            <option  value="estado">Estado</option>
                             <option value="cidade">Cidade</option>
                         </select>
                         <label for="floatingSelectGrid">Filtrar por:</label>
@@ -25,8 +25,8 @@
             </div>
 
             <form action="{{route('eventos')}}" class="d-flex" role="search" >
-                <input class="form-control me-2" type="search" name="filtro" placeholder="Filtrar" aria-label="Search">
-                <button class="btn btn-outline-dark" type="submit">Filtrar</button>
+                <input class="form-control me-2" type="search" name="filtro" placeholder="Nome do evento" aria-label="Search">
+                <button class="btn btn-outline-dark" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
         </div>
         </div>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Foto;
+use App\Models\ItensPedido;
 use App\Models\Pedido;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,16 +35,28 @@ class CarrinhoController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function store(Request $request)
     {
-        $carrinho = new Pedido();
-        $carrinho->status = 2;
-        $carrinho->save($request->fotos);
-        $carrinho->save();
-        $carrinho->user_id = Auth::user()->id ?? 1;
-        return view('carrinho.finalizacao', compact('carrinho'));
+
+        $pedido = new Pedido();
+        $pedido->status = Pedido::AGUARDANDO_PAGAMENTO;
+        $pedido->user_id = Auth::user()->id ?? 1;
+        $pedido->valor_total = 0;
+        $pedido->save();
+
+
+        foreach ($request->fotos as $id){
+            $itemPedido = new ItensPedido();
+            $itemPedido->pedido_id = $pedido->id;
+            $itemPedido->foto_id = $id;
+            $itemPedido->save();
+            $pedido->valor_total += $itemPedido->foto()->first()->evento()->first()->valor;
+        }
+        $pedido->save();
+
+        return view('carrinho.finalizacao', compact('pedido', 'itemPedido'));
     }
 
     /**

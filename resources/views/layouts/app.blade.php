@@ -81,7 +81,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                        <button type="submit" class="btn btn-dark" >Efetuar pedido</button>
+                        <button type="submit" class="btn btn-dark"  >Efetuar pedido</button>
 
                     </div>
                 </form>

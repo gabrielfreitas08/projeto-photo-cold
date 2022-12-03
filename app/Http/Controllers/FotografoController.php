@@ -14,12 +14,17 @@ class FotografoController extends Controller
     public function index(Request $request)
     {
 
+        $tipoUsuario = Role::where('name', '=', 'fotografo')->first();
+
         $fotografos = Fotografo::where([
             'status' => Fotografo::ATIVO
-        ])->whereRelation('user', 'role_id', 3)->get();
+        ])->whereRelation('user', 'role_id', $tipoUsuario->id)->get();
 
-        $estados = Estado::where('id', '=', "{$request->filtro}")->get();
-        $cidades = Cidade::where('id', '=', "{$request->filtro}")->get();
+        $estados = Estado::all();
+        $cidades = Cidade::all();
+
+        //$estados = Estado::where('id', '=', "{$request->filtro}")->get();
+        //$cidades = Cidade::where('id', '=', "{$request->filtro}")->get();
 
         return view('fotografo.fotografo', compact('fotografos', 'estados', 'cidades'));
 

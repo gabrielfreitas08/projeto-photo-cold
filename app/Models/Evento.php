@@ -19,7 +19,7 @@ class Evento extends Model
      */
     /*protected function serializeDate(\DateTimeInterface $date)
     {
-        return $date->format('d-m-Y');
+        return $date->format('d/m/Y');
     }*/
 
 
@@ -32,7 +32,7 @@ class Evento extends Model
         return parent::save();
     }
 
-    public function scopeActive($query)
+    public function scopeUsuario($query)
     {
         $user = Auth::user();
         if ($user->hasRole('admin')) {

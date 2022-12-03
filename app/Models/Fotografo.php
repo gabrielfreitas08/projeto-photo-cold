@@ -11,9 +11,11 @@ class Fotografo extends Model
     public const ATIVO = 2;
     public const INATIVO = 1;
 
+
     /*
      * Função para verificar se o usuário Fotógrafo possui todos os dados, se não possuir, mostrar apenas os dados recebidos
      */
+
     function information() {
 
         $this->middleware('VerifyCsrfToken');
@@ -31,7 +33,7 @@ class Fotografo extends Model
         }
     }
 
-    public function scopeActive($query)
+    public function scopeUsuario($query)
     {
         $user = Auth::user();
         if ($user->hasRole('admin')) {
