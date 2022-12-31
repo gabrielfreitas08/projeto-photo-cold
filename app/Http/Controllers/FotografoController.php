@@ -28,6 +28,14 @@ class FotografoController extends Controller
 
         return view('fotografo.fotografo', compact('fotografos', 'estados', 'cidades'));
 
+    }
+
+    public function trabalhos($id){
+
+        $fotografo = Fotografo::find($id);
+        $trabalhos = json_decode($fotografo?->fotos_trabalho);
+
+        return view('fotografo.trabalho', compact('fotografo', 'trabalhos'));
 
     }
 

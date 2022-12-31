@@ -2,7 +2,7 @@
 
 @section('conteudo')
 
-    <nav class="navbar navbar-expand-lg bg-light">
+   {{-- <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{route('eventos')}}">Eventos</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -15,7 +15,7 @@
                 <div class="col-md">
                     <div class="form-floating align-items-end">
                         <select class="form-select" id="floatingSelectGrid">
-                            {{-- <option selected>Filtrar por</option>--}}
+                            --}}{{-- <option selected>Filtrar por</option>--}}{{--
                             <option  value="estado">Estado</option>
                             <option value="cidade">Cidade</option>
                         </select>
@@ -30,7 +30,7 @@
             </form>
         </div>
         </div>
-    </nav>
+    </nav>--}}
 
 
     <div class="album py-5 bg-light">
@@ -45,7 +45,7 @@
 
                         <div class="card-body">
                             <p class="card-text">
-                                <b> {{ $evento->titulo }} </b>
+                                <b> {{ $evento?->titulo }} </b>
                                {{-- {!! $evento->descricao !!} --}}
                                 {{--R${!! $evento->valor!!}--}}
                             </p>
@@ -53,7 +53,7 @@
                                 <div class="btn-group">
                                     <a href="{{route('eventos.show', [$evento->id])}}" class="btn btn-sm btn-outline-secondary">Visualizar</a>
                                 </div>
-                                <small class="text-muted">{{$evento->cidade?->nome}} - {{ $evento->dia_realizado }}</small>
+                                <small class="text-muted">{{$evento?->cidade?->nome}} - {{ $evento?->dia_realizado->format('d/m/Y') }}</small>
                             </div>
                         </div>
                     </div>

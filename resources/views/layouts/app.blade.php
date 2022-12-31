@@ -41,11 +41,8 @@
             <div class="row align-items-center">
                 <div class="col-lg-4 text-lg-start">Copyright © {{ env('APP_NAME') }}</div>
                 <div class="col-lg-4 my-3 my-lg-0">
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter">
-                        <i class="fab fa-twitter"></i>
-                    </a>
                     <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook">
-                        <i class="fab fa-facebook-f"></i>
+                        <i class="fa-solid fa-file-pdf"></i>
                     </a>
                     <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Github">
                         <i class="fab fa-github"></i>
@@ -122,11 +119,11 @@
             var table =
                 `<thead>
                     <tr>
-                        <td>Foto</td>
-                        <td>Evento</td>
-                        <td>Fotógrafo</td>
-                        <td>Preço</td>
-                        <td>Ações</td>
+                        <td> <b>Foto</b> </td>
+                        <td> <b>Evento</b> </td>
+                        <td> <b>Fotógrafo</b> </td>
+                        <td> <b>Preço</b> </td>
+                        <td> <b>Ações</b> </td>
                     </tr>
                 </thead>
                 <tbody>`;
@@ -134,7 +131,7 @@
                 table +=
                     `<tr>
                         <input type="hidden" name="fotos[]" value="${carrinho[propriedade].id}">
-                        <td><img src="${carrinho[propriedade].imagem}"></td>
+                        <td><img class="imagem-carrinho" src="${carrinho[propriedade].imagem}"></td>
                         <td>${carrinho[propriedade].evento}</td>
                         <td>${carrinho[propriedade].fotografo}</td>
                         <td>${formatarPreco(carrinho[propriedade].valor)}</td>

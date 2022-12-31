@@ -22,6 +22,12 @@ class Evento extends Model
         return $date->format('d/m/Y');
     }*/
 
+    protected $dates = [
+        'dia_realizado',
+        'created_at',
+        'updated_at',
+    ];
+
 
     public function save(array $options = [])
     {
@@ -43,7 +49,6 @@ class Evento extends Model
 
     public function capa()
     {
-        /*dd($this->capa_id);*/
         return $this->hasOne(Foto::class, 'id', 'capa_id');
     }
 
@@ -58,6 +63,11 @@ class Evento extends Model
 
     public function user(){
         return $this->belongsTo(User::class);
+    }
+
+    public function getValorFormtadoReal(){
+
+        return 'R$ '.number_format($this->valor, 2, ',', '.');
     }
 
 }

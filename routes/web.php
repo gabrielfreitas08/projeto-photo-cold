@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Auth;
-use App\Models\{Fotografo, User, Evento, Foto};
+use App\Models\{Fotografo, User, Evento, Foto, Pedido};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,8 +49,8 @@ Route::get('/eventos/{id}', function ($id)  {
 // Rota de visualização dos perfis dos fotografos
 Route::get('/fotografos/{id}', function ($id)  {
 
-    $fotografos = Fotografo::find($id);
-    return view('fotografo.perfil',compact('fotografos'));
+    $fotografo = Fotografo::find($id);
+    return view('fotografo.perfil',compact('fotografo'));
 })->name('fotografos.show');
 
 
@@ -63,25 +63,47 @@ Route::get('/mail/{id}', function ($id){
     if ($tipoUsuarioLogado->name != 'admin' and $tipoUsuarioLogado->name != 'fotografo'){
         return redirect()->route('eventos');
     }
-    $pedido =  \App\Models\Pedido::find($id);
+    $pedido =  Pedido::find($id);
 
     //return new \App\Mail\UserEmail($user, $fotos);
      \Illuminate\Support\Facades\Mail::send(new \App\Mail\UserEmail($pedido));
      return back();
 })->name('mail');
 
+// rota de visualização dos itens do pedido
+Route::get('/pedido/{id}/view', function ($id)  {
+
+    $pedido = Pedido::find($id);
+    return view('pedido.show',compact('pedido'));
+})->name('pedido.show');
+
+// rota de visualização dos meio de pagamento (como pagar)
+Route::get('/pedido/{id}/view/pagamento', function ($id)  {
+
+    $pedido = Pedido::find($id);
+    $usuario_fotografo = $pedido->fotos()->first()->evento()->first()->user()->first();
+    //dd($usuario_fotografo);
+    $fotografo = Fotografo::where('user_id', $usuario_fotografo->id)->first();
+
+    return view('pedido.pagamento',compact('pedido', 'fotografo'));
+})->name('pedido.pagamento');
+
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
+
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/eventos',[\App\Http\Controllers\EventoController::class, 'index'])->name('eventos');
 Route::get('/fotografos', [\App\Http\Controllers\FotografoController::class, 'index'])->name('fotografos');
-Route::get('/pedido/{id}/pagamento', [\App\Http\Controllers\PedidoController::class, 'index'])->name('pagamento.index');
+Route::get('/fotografos/{id}/trabalhos', [\App\Http\Controllers\FotografoController::class, 'trabalhos'])->name('fotografos.trabalho');
+
 
 Route::middleware(['auth'])->group(function () {
     Route::post('/carrinho', [\App\Http\Controllers\CarrinhoController::class, 'store'])->name('carrinho.store');
+    Route::get('/pedido/{id}/pagamento', [\App\Http\Controllers\PedidoController::class, 'index'])->name('pagamento.index');
+    Route::get('/meuspedidos', [\App\Http\Controllers\PedidoController::class, 'pedidocliente'])->name('pedidocliente');
 });

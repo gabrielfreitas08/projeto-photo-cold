@@ -10,7 +10,7 @@ class EventoVoyagerController extends \TCG\Voyager\Http\Controllers\VoyagerBaseC
     {
         $multi_select = [];
 
-        $fotosEvento = [];
+        $fotosDoEvento = [];
 
         // Pass $rows so that we avoid checking unused fields
         $request->attributes->add(['breadRows' => $rows->pluck('field')->toArray()]);
@@ -55,7 +55,7 @@ class EventoVoyagerController extends \TCG\Voyager\Http\Controllers\VoyagerBaseC
             if (in_array($row->type, ['multiple_images', 'file']) && !is_null($content)) {
                 if (isset($data->{$row->field})) {
                     $ex_files = json_decode($data->{$row->field}, true);
-                    $fotosEvento = json_decode($content); // caminho de cada foto
+                    $fotosDoEvento = json_decode($content);
                     if (!is_null($ex_files)) {
                         $content = json_encode(array_merge($ex_files, json_decode($content)));
                     }
@@ -90,13 +90,13 @@ class EventoVoyagerController extends \TCG\Voyager\Http\Controllers\VoyagerBaseC
             if ($row->type == 'relationship' && $row->details->type == 'belongsToMany') {
                 // Only if select_multiple is working with a relationship
                 $multi_select[] = [
-                    'model' => $row->details->model,
-                    'content' => $content,
-                    'table' => $row->details->pivot_table,
+                    'model'           => $row->details->model,
+                    'content'         => $content,
+                    'table'           => $row->details->pivot_table,
                     'foreignPivotKey' => $row->details->foreign_pivot_key ?? null,
                     'relatedPivotKey' => $row->details->related_pivot_key ?? null,
-                    'parentKey' => $row->details->parent_key ?? null,
-                    'relatedKey' => $row->details->key,
+                    'parentKey'       => $row->details->parent_key ?? null,
+                    'relatedKey'      => $row->details->key,
                 ];
             } else {
                 $data->{$row->field} = $content;
@@ -129,14 +129,25 @@ class EventoVoyagerController extends \TCG\Voyager\Http\Controllers\VoyagerBaseC
             )->sync($sync_data['content']);
         }
 
-        // sobrescreveu o padrão do voyager
-        foreach ($fotosEvento as $foto_path) {
+        if (isset($data->fotos_evento)) {
+            $ex_files = json_decode($data->fotos_evento, true);
+            $fotosDoEvento = json_decode($content);
+            if (!is_null($ex_files)) {
+                $content = json_encode(array_merge($ex_files, json_decode($content)));
+            }
+        }
+
+        //dd($fotosDoEvento, $request, $slug, $rows, $data);
+        foreach ($fotosDoEvento as $indice =>$foto_path) {
             $foto = new \App\Models\Foto();
             $foto->evento_id = $data->id;
             $foto->original = $foto_path;
             $foto->save();
+            if($indice==0){
+                $data->capa_id = $foto->id;
+                $data->save();
+            }
         }
-
 
         // Rename folders for newly created data through media-picker
         if ($request->session()->has($slug . '_path') || $request->session()->has($slug . '_uuid')) {
@@ -149,7 +160,8 @@ class EventoVoyagerController extends \TCG\Voyager\Http\Controllers\VoyagerBaseC
                 $data->{$row->field} = str_replace($uuid, $data->getKey(), $data->{$row->field});
             });
             $data->save();
-            if ($old_path != $new_path &&
+            if (
+                $old_path != $new_path &&
                 !Storage::disk(config('voyager.storage.disk'))->exists($new_path) &&
                 Storage::disk(config('voyager.storage.disk'))->exists($old_path)
             ) {

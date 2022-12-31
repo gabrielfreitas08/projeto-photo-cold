@@ -40,23 +40,30 @@ class CarrinhoController extends Controller
     public function store(Request $request)
     {
 
-        $pedido = new Pedido();
-        $pedido->status = Pedido::AGUARDANDO_PAGAMENTO;
-        $pedido->user_id = Auth::user()->id ?? 1;
-        $pedido->valor_total = 0;
-        $pedido->save();
-
-
-        foreach ($request->fotos as $id){
-            $itemPedido = new ItensPedido();
-            $itemPedido->pedido_id = $pedido->id;
-            $itemPedido->foto_id = $id;
-            $itemPedido->save();
-            $pedido->valor_total += $itemPedido->foto()->first()->evento()->first()->valor;
+        $pedidosPorFotografo = [];
+        foreach ($request->fotos as $foto_id) {
+            $foto = Foto::find($foto_id);
+            $pedidosPorFotografo[$foto->evento()->first()->user()->first()->id][] = $foto;
         }
-        $pedido->save();
 
-        return view('carrinho.finalizacao', compact('pedido', 'itemPedido'));
+        foreach ($pedidosPorFotografo as $usuario_id => $fotos) {
+            $pedido = new Pedido();
+            $pedido->status = Pedido::AGUARDANDO_PAGAMENTO;
+            $pedido->user_id = Auth::user()->id ?? 1;
+            $fotografo = Fotografo::where('user_id', $usuario_id)->first();
+            $pedido->fotografo_id = $fotografo->id;
+            $pedido->valor_total = 0;
+            $pedido->save();
+            foreach($fotos as $foto){
+                $itemPedido = new ItensPedido();
+                $itemPedido->pedido_id = $pedido->id;
+                $itemPedido->foto_id = $foto->id;
+                $itemPedido->save();
+                $pedido->valor_total += $itemPedido->foto()->first()->evento()->first()->valor;
+            }
+            $pedido->save();
+        }
+        return view('carrinho.index', compact('pedido', 'itemPedido'));
     }
 
     /**
@@ -73,7 +80,7 @@ class CarrinhoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -84,8 +91,8 @@ class CarrinhoController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -96,7 +103,7 @@ class CarrinhoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

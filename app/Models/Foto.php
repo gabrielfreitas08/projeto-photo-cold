@@ -12,7 +12,6 @@ class Foto extends Model
     use Resizable;
 
 
-
     public function evento(){
         return $this->belongsTo(Evento::class);
     }

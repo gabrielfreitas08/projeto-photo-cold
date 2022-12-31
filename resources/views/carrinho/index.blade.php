@@ -37,7 +37,7 @@
     </section>
 
     <div class="d-flex justify-content-end p-md-5">
-        <a class="" href="{{route('carrinho.finalizacao',[$carrinho->id])}}">
+        <a class="" href="{{route('')}}">
             <button type="button" class="btn btn-dark">Continuar a compra</button>
         </a>
     </div>

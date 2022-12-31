@@ -3,7 +3,7 @@
 @section('conteudo')
 
 
-        <nav class="navbar navbar-expand-lg bg-light">
+     {{--   <nav class="navbar navbar-expand-lg bg-light">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{{route('fotografos')}}">Fotógrafos</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -45,7 +45,7 @@
                 </form>
             </div>
             </div>
-        </nav>
+        </nav>--}}
 
 
 

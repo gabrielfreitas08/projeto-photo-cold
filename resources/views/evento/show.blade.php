@@ -17,8 +17,8 @@
                 <b><h3 class="text-center fs-2">{{ $eventos?->titulo }}</h3></b>
                 {!! $eventos?->descricao !!}
                 <div class="d-flex justify-content-between">
-                    <p> {{ $eventos->user?->name }} </p>
-                    <p> {{ $eventos->cidade?->nome }} </p>
+                    <p> {{ $eventos?->user?->name }} </p>
+                    <p> {{ $eventos?->cidade?->nome }} </p>
                 </div>
                 <p class=""> {{ $eventos?->dia_realizado }} </p>
             </div>
@@ -29,7 +29,7 @@
 
 
     <section class="d-flex justify-content-evenly flex-wrap ">
-        @forelse ($eventos->fotos as $foto)
+        @forelse ($eventos?->fotos as $foto)
             <div class="card " style="width: 18rem;">
                 <img src="{{ Voyager::image($foto->thumbnail('medium', 'original')) }}" class="card-img-top"
                      alt="...">
@@ -40,6 +40,10 @@
                        data-valor="{{$eventos->valor}}" data-evento="{{$eventos->titulo}}" data-fotografo="{{$eventos->user?->name}}"
                        onclick="adicionarItemNoCarrinho()" class="btn btn-dark">Adicionar ao carrinho</a>
                 </div>
+                {{--
+                <i class="fa-solid fa-square-check"></i> para adicionar ao carrinho
+                <i class="fa-solid fa-square-xmark"></i> alternativa para retirar do carrinho
+                --}}
             </div>
         @empty
             <p>Não há fotos cadastradas</p>

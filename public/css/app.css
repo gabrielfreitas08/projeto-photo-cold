@@ -586,3 +586,26 @@ section#contact form#contactForm :-ms-input-placeholder {
 .bd-placeholder-img{
     object-fit: cover;
 }
+
+#tabela-carrinho .imagem-carrinho{
+    width: 8rem;
+    height: 8rem;
+    object-fit: cover;
+}
+#tabela-meus-pedidos >:not(caption)>*>* {
+    padding: 0.5rem 3.5rem !important;
+
+}
+
+.imagem-pedido{
+    width: 12rem;
+    height: 12rem;
+    object-fit: cover;
+}
+
+.login-fundo{
+    background-color: #000000;
+
+}
+
+
