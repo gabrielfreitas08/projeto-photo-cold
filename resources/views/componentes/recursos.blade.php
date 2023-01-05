@@ -21,7 +21,7 @@
                     <i class="fas fa-solid fa-stack-1x fa-envelope-circle-check fa-inverse"></i>
                 </span>
                 <h4 class="my-3">Envio Final Automático</h4>
-                <p class="text-muted">Após o cliente efetuar o pagamento do seu pedido, as fotos serão enviadas automaticamente para o e-mail. </p>
+                <p class="text-muted">Após o pagamento do pedido ser confirmado, as fotos serão enviadas automaticamente para o e-mail do cliente. </p>
             </div>
             {{--Possibilita o cliente selecionar fotos que desejar e recebe-las a versão de alta resolução, após o pagamento.--}}
             <div class="col-md-4">

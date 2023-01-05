@@ -44,7 +44,7 @@
                     <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook">
                         <i class="fa-solid fa-file-pdf"></i>
                     </a>
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Github">
+                    <a class="btn btn-dark btn-social mx-2" href="https://github.com/gabrielfreitas08/projeto-photo-cold" aria-label="Github">
                         <i class="fab fa-github"></i>
                     </a>
                 </div>
@@ -78,8 +78,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                        <button type="submit" class="btn btn-dark"  >Efetuar pedido</button>
-
+                        <button type="submit" class="btn btn-dark" onclick="limparArmazenamentoLocal()" >Efetuar pedido</button>
                     </div>
                 </form>
             </div>
@@ -182,6 +181,11 @@
                 carrinho = [];
                 preencherTabelaCarrinho(carrinho);
             }
+        }
+
+        //limpa o carrinho após a efetuação do pedido
+        function limparArmazenamentoLocal(){
+            localStorage.clear();
         }
 
         //salvando em storage

@@ -17,7 +17,7 @@
             </tr>
             </thead>
 
-            <tbody>
+            <tbody class="table-group-divider">
 
             @foreach($pedido->fotos as $foto)
                 <tr>

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class Fotografo extends Model
 {
     public const ATIVO = 2;
-    public const INATIVO = 1;
+    public const INATIVO = 3;
 
 
     /*

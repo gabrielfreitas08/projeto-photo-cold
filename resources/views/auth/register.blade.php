@@ -1,5 +1,11 @@
 @extends('layouts.app')
-
+@section('assets')
+    <style>
+        .page-section {
+            background-color: black;
+        }
+    </style>
+@endsection
 @section('section')
 
     <section class="login-fundo">

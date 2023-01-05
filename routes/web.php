@@ -50,7 +50,8 @@ Route::get('/eventos/{id}', function ($id)  {
 Route::get('/fotografos/{id}', function ($id)  {
 
     $fotografo = Fotografo::find($id);
-    return view('fotografo.perfil',compact('fotografo'));
+    $trabalhos = json_decode($fotografo?->fotos_trabalho);
+    return view('fotografo.perfil',compact('fotografo', 'trabalhos'));
 })->name('fotografos.show');
 
 
@@ -99,11 +100,12 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/eventos',[\App\Http\Controllers\EventoController::class, 'index'])->name('eventos');
 Route::get('/fotografos', [\App\Http\Controllers\FotografoController::class, 'index'])->name('fotografos');
-Route::get('/fotografos/{id}/trabalhos', [\App\Http\Controllers\FotografoController::class, 'trabalhos'])->name('fotografos.trabalho');
 
 
 Route::middleware(['auth'])->group(function () {
     Route::post('/carrinho', [\App\Http\Controllers\CarrinhoController::class, 'store'])->name('carrinho.store');
     Route::get('/pedido/{id}/pagamento', [\App\Http\Controllers\PedidoController::class, 'index'])->name('pagamento.index');
     Route::get('/meuspedidos', [\App\Http\Controllers\PedidoController::class, 'pedidocliente'])->name('pedidocliente');
+    Route::get('/fotografos/{id}/ativar', [\App\Http\Controllers\FotografoController::class, 'ativar'])->name('fotografo.ativar');
+    Route::post('/pedido/{id}/informar_pagamento', [\App\Http\Controllers\PedidoController::class, 'informarPagamento'])->name('pedido.informar_pagamento');
 });

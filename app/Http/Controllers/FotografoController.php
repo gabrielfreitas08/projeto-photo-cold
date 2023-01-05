@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Cidade;
 use App\Models\Estado;
 use App\Models\Fotografo;
+use App\Models\Pedido;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use TCG\Voyager\Models\Role;
 
 class FotografoController extends Controller
@@ -30,13 +32,25 @@ class FotografoController extends Controller
 
     }
 
-    public function trabalhos($id){
+    public function update(Request $request, $id)
+    {
+
+    }
+
+    public function ativar($id, Request $request){
+
+        $tipoUsuarioLogado = Auth::user()->role()->first();
+
+        // autorização para verificar o tipo de usuario
+        if ($tipoUsuarioLogado->name != 'admin'){
+            return redirect()->route('fotografos');
+        }
 
         $fotografo = Fotografo::find($id);
-        $trabalhos = json_decode($fotografo?->fotos_trabalho);
+        $fotografo->status = Fotografo::ATIVO;
+        $fotografo->save();
 
-        return view('fotografo.trabalho', compact('fotografo', 'trabalhos'));
-
+        return redirect()->back();
     }
 
 

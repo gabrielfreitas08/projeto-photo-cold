@@ -24,13 +24,18 @@ class Pedido extends Model
     public function scopeUsuario($query)
     {
         $user = Auth::user();
+        // pode ver todos os pedidos se o tipo de usuario for admin
         if ($user->hasRole('admin')) {
             return $query;
         }
+        // o fotografo pode ver os pedidos foram feitos para ele
+        if ($user->hasRole('fotografo')) {
+            $fotografo = Fotografo::where('user_id', $user->getKey())->first();
+            return $query->where('fotografo_id', $fotografo->id);
+        }
+        // se atender nehuma condição, retorna apenas os pedidos feitos pelo usuario logado
         return $query->where('user_id', $user->getKey());
     }
-
-    // criar metodo para retornar o texto do status
 
     public function getStatus(){
 
@@ -52,6 +57,10 @@ class Pedido extends Model
     public function getValorFormtadoReal(){
 
         return 'R$ '.number_format($this->valor_total, 2, ',', '.');
+    }
+
+    public function estaAguardandoPagamento(){
+        return $this->status == self::AGUARDANDO_PAGAMENTO;
     }
 
 }

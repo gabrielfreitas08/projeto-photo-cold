@@ -608,4 +608,9 @@ section#contact form#contactForm :-ms-input-placeholder {
 
 }
 
+.info-pay{
+    border: #000000 solid;
+    border-radius: 25px;
+    padding: 0.5rem;
+}
 

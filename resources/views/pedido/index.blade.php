@@ -2,12 +2,14 @@
 
 @section('conteudo')
 
+
+
     <div class="container mt-lg-5 ">
         <i class="fa-solid fa-dolly"></i>
         <h3 class="">Meus Pedidos</h3>
     </div>
 
-    <table id="tabela-meus-pedidos" class="table table-hover">
+    <table id="tabela-meus-pedidos" class="table table-hover ">
 
         <tr>
             <th scope="col">#</th>
@@ -24,7 +26,9 @@
                 <td>{{ $pedido->getValorFormtadoReal() }}</td>
                 <td>
                     <a href="{{ route('pedido.show', [$pedido->id]) }}" class="btn btn-outline-secondary">Visualizar Pedido </a>
-                    <a href="{{ route('pedido.pagamento', [$pedido->id]) }}" class="btn btn-dark"> Informar Pagamento </a>
+                    @if($pedido->estaAguardandoPagamento())
+                        <a href="{{ route('pedido.pagamento', [$pedido->id]) }}" class="btn btn-dark"> Informar Pagamento </a>
+                    @endif
                 </td>
             </tr>
 

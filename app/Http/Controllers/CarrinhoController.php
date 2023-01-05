@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Foto;
+use App\Models\Fotografo;
 use App\Models\ItensPedido;
 use App\Models\Pedido;
 use Illuminate\Http\Request;
@@ -40,6 +41,8 @@ class CarrinhoController extends Controller
     public function store(Request $request)
     {
 
+        $pedidos = [];
+
         $pedidosPorFotografo = [];
         foreach ($request->fotos as $foto_id) {
             $foto = Foto::find($foto_id);
@@ -62,8 +65,9 @@ class CarrinhoController extends Controller
                 $pedido->valor_total += $itemPedido->foto()->first()->evento()->first()->valor;
             }
             $pedido->save();
+            $pedidos[] = $pedido;
         }
-        return view('carrinho.index', compact('pedido', 'itemPedido'));
+        return view('pedido.index', compact('pedidos'));
     }
 
     /**

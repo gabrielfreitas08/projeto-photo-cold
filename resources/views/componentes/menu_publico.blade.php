@@ -53,6 +53,10 @@
                                 Meus Pedidos
                             </a>
 
+                            <a class="dropdown-item" href="{{ route('voyager.profile') }}">
+                                Perfil
+                            </a>
+
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                    document.getElementById('logout-form').submit();">

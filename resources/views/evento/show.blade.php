@@ -20,7 +20,7 @@
                     <p> {{ $eventos?->user?->name }} </p>
                     <p> {{ $eventos?->cidade?->nome }} </p>
                 </div>
-                <p class=""> {{ $eventos?->dia_realizado }} </p>
+                <p class=""> {{ $eventos?->dia_realizado->format('d/m/Y') }} </p>
             </div>
         </div>
 
@@ -30,9 +30,9 @@
 
     <section class="d-flex justify-content-evenly flex-wrap ">
         @forelse ($eventos?->fotos as $foto)
-            <div class="card " style="width: 18rem;">
+            <div class="card" style="width: 18rem;">
                 <img src="{{ Voyager::image($foto->thumbnail('medium', 'original')) }}" class="card-img-top"
-                     alt="...">
+                     alt="..." >
                 <div class="card-body">
                     <h5 class="card-title"></h5>
                     <p class="card-text">{{ $eventos->evento_id }}</p>

@@ -6,6 +6,7 @@ use App\Models\Pedido;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class PedidoController extends Controller
 {
@@ -38,6 +39,21 @@ class PedidoController extends Controller
         $pedidos = Pedido::where('user_id',$user->id)->orderBy('id', 'DESC')->get();
 
         return view('pedido.index', compact('pedidos'));
+
+    }
+
+    public function informarPagamento($id, Request $request){
+
+        $pedido = Pedido::find($id);
+        //dd($request->comprovante);
+        $pedido->status = Pedido::PAGAMENTO_INFORMADO;
+        if (isset($request->comprovante)) {
+            $pedido->comprovante =
+                $request->file('comprovante')->store('comprovantes/'.$id, 'public');
+        }
+        $pedido->save();
+
+        return redirect()->route('pedidocliente');
 
     }
 }

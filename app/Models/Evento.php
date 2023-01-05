@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class Evento extends Model
 {
+    public const PUBLICO = 1;
 
     /**
      * Prepare a date for array / JSON serialization.
