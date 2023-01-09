@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Auth;
-use App\Models\{Fotografo, User, Evento, Foto, Pedido};
+use App\Models\{Fotografo, User, Evento, Foto, Pedido, Estado};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -75,6 +75,7 @@ Route::get('/mail/{id}', function ($id){
 Route::get('/pedido/{id}/view', function ($id)  {
 
     $pedido = Pedido::find($id);
+
     return view('pedido.show',compact('pedido'));
 })->name('pedido.show');
 
@@ -88,6 +89,15 @@ Route::get('/pedido/{id}/view/pagamento', function ($id)  {
 
     return view('pedido.pagamento',compact('pedido', 'fotografo'));
 })->name('pedido.pagamento');
+
+//
+Route::get('/user/solicitacao', function (){
+
+    $user = Auth::user()->first();
+    $estados = Estado::all();
+
+    return view('fotografo.upgrade',compact('user', 'estados'));
+})->name('solicitacao');
 
 
 Route::group(['prefix' => 'admin'], function () {
@@ -108,4 +118,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/meuspedidos', [\App\Http\Controllers\PedidoController::class, 'pedidocliente'])->name('pedidocliente');
     Route::get('/fotografos/{id}/ativar', [\App\Http\Controllers\FotografoController::class, 'ativar'])->name('fotografo.ativar');
     Route::post('/pedido/{id}/informar_pagamento', [\App\Http\Controllers\PedidoController::class, 'informarPagamento'])->name('pedido.informar_pagamento');
+    Route::post('/fotografos/{id}/fotografo', [\App\Http\Controllers\FotografoController::class, 'userUpgrade'])->name('fotografo.upgrade');
 });

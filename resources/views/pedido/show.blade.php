@@ -35,5 +35,10 @@
         </table>
     </div>
 
+    @if($pedido)
+        <div class="d-flex justify-content-end m-5 p-5">
+            <a class="btn btn-success " href="{{route('pedido.pagamento', [$pedido?->id])}}">Realizar Pagamento</a>
+        </div>
+    @endif
 
 @endsection

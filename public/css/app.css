@@ -614,3 +614,35 @@ section#contact form#contactForm :-ms-input-placeholder {
     padding: 0.5rem;
 }
 
+.evento-card{
+    position: relative;
+    min-width: 18rem;
+    min-height: 18rem;
+    background-color: #333333;
+}
+
+.evento-card img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.evento-card .evento-btn-add{
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+}
+
+.evento-card.selecionado {
+    border: 2px solid #157347;
+    box-shadow: 0 4px 8px 0 #157347;
+}
+
+a.selecionado {
+    background-color: #157347 !important;
+    box-shadow: 0 3px 6px 0 #157347;
+}
+
+.modal-fullscreen {
+    height: fit-content;
+}

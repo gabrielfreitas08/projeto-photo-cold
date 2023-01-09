@@ -77,8 +77,9 @@
                         <h4 class="text-center text-success">Total: <span id="valor-total">$ 0,00</span></h4>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                        <button type="submit" class="btn btn-dark" onclick="limparArmazenamentoLocal()" >Efetuar pedido</button>
+                        <button type="submit" class="btn btn-dark" onclick="limparArmazenamentoLocal()">Efetuar pedido</button>
+                        <button type="button" class="btn btn-outline-dark" onclick="limparCarrinho()" data-bs-dismiss="modal">Limpar carrinho</button>
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Fechar</button>
                     </div>
                 </form>
             </div>
@@ -154,23 +155,46 @@
         //adicionando os dados
         function adicionarItemNoCarrinho() {
             var elementoClicado = event.target;
-            console.log(elementoClicado.dataset);
+            // console.log(elementoClicado.dataset);
             carrinho.push(elementoClicado.dataset);
-            elementoClicado.innerHTML = "Remover do carrinho";
-            elementoClicado.classList.add("disabled");
+            adicionarEstiloSelecionado(elementoClicado);
             preencherTabelaCarrinho(carrinho);
         }
 
+        function adicionarEstiloSelecionado(elementoClicado){
+            elementoClicado.parentNode.classList.add('selecionado');
+            elementoClicado.innerHTML = `<i class="fa-solid fa-check"></i> Selecionado`;
+            elementoClicado.classList.add("disabled");
+            elementoClicado.classList.add("selecionado");
+        }
+
+        function removerEstiloSelecionado(elementoClicado){
+            elementoClicado.parentNode.classList.remove('selecionado');
+            elementoClicado.innerHTML = `<i class="fa-solid fa-cart-plus"></i> Selecionar`;
+            elementoClicado.classList.remove("disabled");
+            elementoClicado.classList.remove("selecionado");
+        }
+
         //deletando os dados
-        function removerItemDoCarrinho(id) {
+        function removerItemDoCarrinho(indice) {
             if (confirm("Você realmente deseja remover esse item do carrinho?")) {
-                if (id === carrinho.length - 1) {
+                let item = carrinho[indice];
+                if (indice === carrinho.length - 1) {
                     carrinho.pop();
-                } else if (id === 0) {
+                } else if (indice === 0) {
                     carrinho.shift();
                 } else {
-                    carrinho.splice(id, 1);
+                    carrinho.splice(indice, 1);
                 }
+
+                if (item){
+                    let botaoFoto = document.querySelector(`a[data-id="${item.id}"]`);
+
+                    if (botaoFoto != null){
+                        removerEstiloSelecionado(botaoFoto);
+                    }
+                }
+
                 preencherTabelaCarrinho(carrinho);
             }
         }
@@ -180,6 +204,18 @@
             if (confirm("Você deseja realmente apagar seu carrinho?")) {
                 carrinho = [];
                 preencherTabelaCarrinho(carrinho);
+                let selecionados = document.querySelectorAll('.evento-card.selecionado');
+                for (let selecionado of selecionados){
+                    console.log(selecionado)
+                    selecionado.classList.remove('selecionado');
+                    btn = selecionado.querySelector('.selecionado');
+                    if(btn){
+                        btn.classList.remove('selecionado');
+                        btn.classList.remove('disabled');
+                        btn.innerHTML = `<i class="fa-solid fa-check"></i> Selecionar`;
+                    }
+                }
+
             }
         }
 
@@ -202,6 +238,15 @@
                 carrinho = [];
             }
             preencherTabelaCarrinho(carrinho);
+            preencherSelecionados(carrinho);
+        }
+
+        function preencherSelecionados (carrinho){
+            for (let item in carrinho){
+                let id = carrinho[item].id;
+                let botaoFoto = document.querySelector(`a[data-id="${id}"]`);
+                adicionarEstiloSelecionado(botaoFoto);
+            }
         }
 
         carregarCarrinho();

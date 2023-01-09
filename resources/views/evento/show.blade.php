@@ -2,7 +2,6 @@
 
 @section('conteudo')
 
-
     <section class="page-section bg-light ">
 
         <div class="row">
@@ -26,24 +25,37 @@
 
     </section>
 
-
-
-    <section class="d-flex justify-content-evenly flex-wrap ">
+    <section class="d-flex justify-content-center flex-wrap ">
         @forelse ($eventos?->fotos as $foto)
-            <div class="card" style="width: 18rem;">
+            <div class="evento-card m-2" type="button" data-bs-toggle="modal"
+                 data-bs-target="#fotoModal-{{ $foto->id }}">
+
                 <img src="{{ Voyager::image($foto->thumbnail('medium', 'original')) }}" class="card-img-top"
-                     alt="..." >
-                <div class="card-body">
-                    <h5 class="card-title"></h5>
-                    <p class="card-text">{{ $eventos->evento_id }}</p>
-                    <a data-id="{{$foto->id}}" data-imagem="{{Voyager::image($foto->thumbnail('small', 'original'))}}"
-                       data-valor="{{$eventos->valor}}" data-evento="{{$eventos->titulo}}" data-fotografo="{{$eventos->user?->name}}"
-                       onclick="adicionarItemNoCarrinho()" class="btn btn-dark">Adicionar ao carrinho</a>
+                     alt="foto evento">
+
+                <a data-id="{{ $foto->id }}"
+                   data-imagem="{{ Voyager::image($foto->thumbnail('small', 'original')) }}"
+                   data-valor="{{ $eventos->valor }}" data-evento="{{ $eventos->titulo }}"
+                   data-fotografo="{{ $eventos->user?->name }}" onclick="adicionarItemNoCarrinho()"
+                   class="btn btn-dark evento-btn-add"><i class="fa-solid fa-cart-plus"></i> Selecionar</a>
+            </div>
+            <div class="modal fade" id="fotoModal-{{ $foto->id }}" tabindex="-1"
+                 aria-labelledby="fotoModal-{{ $foto->id }}Label" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="fotoModal-{{ $foto->id }}Label">Foto #{{ $foto->id }}</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="{{ Voyager::image($foto->thumbnail('medium', 'original')) }}" class="img-fluid"
+                                 alt=" foto do evento">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        </div>
+                    </div>
                 </div>
-                {{--
-                <i class="fa-solid fa-square-check"></i> para adicionar ao carrinho
-                <i class="fa-solid fa-square-xmark"></i> alternativa para retirar do carrinho
-                --}}
             </div>
         @empty
             <p>Não há fotos cadastradas</p>

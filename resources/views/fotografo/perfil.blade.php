@@ -13,16 +13,18 @@
                     <h4>{{ $fotografo?->user?->name }}</h4>
                     <p class="text-muted">{{$fotografo?->cidade?->nome}} <br>
                         {{$fotografo?->cidade?->estado?->nome}}</p>
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Twitter Profile"><i
+                    @isset($fotografo)
+                    <a class="btn btn-dark btn-social mx-2" href="{{ $fotografo?->whatsapp }}" aria-label="Parveen Anand Twitter Profile"><i
                             class="fab fa-whatsapp"></i></a>
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Facebook Profile"><i
+                    <a class="btn btn-dark btn-social mx-2" href="{{ $fotografo?->instagram }}" aria-label="Parveen Anand Facebook Profile"><i
                             class="fab fa-instagram"></i></a>
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand LinkedIn Profile"><i
+                    <a class="btn btn-dark btn-social mx-2" href="{{ $fotografo?->facebook }}" aria-label="Parveen Anand LinkedIn Profile"><i
                             class="fab fa-facebook"></i></a>
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand LinkedIn Profile"><i
+                    <a class="btn btn-dark btn-social mx-2" href="{{ $fotografo?->emial_profissional }}" aria-label="Parveen Anand LinkedIn Profile"><i
                             class="fa-solid fa-envelope"></i></a>
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand LinkedIn Profile"><i
+                    <a class="btn btn-dark btn-social mx-2" href="{{ $fotografo?->site }}" aria-label="Parveen Anand LinkedIn Profile"><i
                             class="fa-solid fa-globe"></i></a>
+                    @endisset
                 </div>
             </div>
             <div class="p-lg-5 col-lg-7 ">

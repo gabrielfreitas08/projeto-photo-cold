@@ -2,10 +2,40 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Foto;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
+use stdClass;
 
 class EventoVoyagerController extends \TCG\Voyager\Http\Controllers\VoyagerBaseController
 {
+    public $filesystem;
+
+    public function __construct()
+    {
+        $this->filesystem = config('voyager.storage.disk');
+    }
+
+    private function addWatermarkToImage($file_path, $options)
+    {
+
+        $image = Image::make(Storage::disk($this->filesystem)->get($file_path));
+        $watermark = Image::make(Storage::disk('public-folder')->path('images/logo.png'));
+
+        // Resize watermark
+        $width = $image->width() * (($options->size ?? 33) / 100);
+        $watermark->resize($width, null, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+
+        return $image->insert(
+            $watermark,
+            ($options->position ?? 'center'),
+            ($options->x ?? 0),
+            ($options->y ?? 0)
+        );
+    }
+
     public function insertUpdateData($request, $slug, $rows, $data)
     {
         $multi_select = [];
@@ -21,6 +51,8 @@ class EventoVoyagerController extends \TCG\Voyager\Http\Controllers\VoyagerBaseC
         $translations = is_bread_translatable($data)
             ? $data->prepareTranslations($request)
             : [];
+
+
 
         foreach ($rows as $row) {
             // if the field for this row is absent from the request, continue
@@ -127,6 +159,24 @@ class EventoVoyagerController extends \TCG\Voyager\Http\Controllers\VoyagerBaseC
                 $sync_data['parentKey'],
                 $sync_data['relatedKey']
             )->sync($sync_data['content']);
+        }
+
+        foreach ($fotosDoEvento as $indice =>$foto_path) {
+            $foto = new Foto();
+            $foto->evento_id = $data->id;
+            $foto->original = $foto_path;
+            $options = new stdClass;
+            $thumbnail_file = $foto->thumbnail('medium', 'original');
+            $infoPath = pathinfo($thumbnail_file);
+            $extension = $infoPath['extension'];
+            $thumbnail = $this->addWatermarkToImage($thumbnail_file,$options);
+            Storage::disk($this->filesystem)->put($thumbnail_file, $thumbnail->encode($extension, 90)->encoded);
+
+            $foto->save();
+            if($indice==0){
+                $data->capa_id = $foto->id;
+                $data->save();
+            }
         }
 
         if (isset($data->fotos_evento)) {
